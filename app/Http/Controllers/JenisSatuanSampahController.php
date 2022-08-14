@@ -38,7 +38,12 @@ class JenisSatuanSampahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_jenis_satuan' => 'required'
+        ]);
+
+        JenisSatuanSampah::create($request->post());
+        return back()->with('success', 'data telah ditambahkan');
     }
 
     /**
@@ -60,7 +65,7 @@ class JenisSatuanSampahController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -72,7 +77,9 @@ class JenisSatuanSampahController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $jenissatuan = JenisSatuanSampah::find($id);
+        $jenissatuan->update($request->post());
+        return back()->with('success', 'data telah diubah');
     }
 
     /**
@@ -83,6 +90,8 @@ class JenisSatuanSampahController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $jenissatuan = JenisSatuanSampah::findOrFail($id);
+        $jenissatuan->delete();
+        return back();
     }
 }
