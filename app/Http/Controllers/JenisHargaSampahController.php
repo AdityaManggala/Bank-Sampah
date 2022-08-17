@@ -40,7 +40,7 @@ class JenisHargaSampahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_jenis_harga_sampah' => 'required'
+            'nama_jenis_harga' => 'required'
         ]);
 
         JenisHargaSampah::create($request->post());
@@ -66,7 +66,7 @@ class JenisHargaSampahController extends Controller
      */
     public function edit($id)
     {
-        //
+        //   
     }
 
     /**
@@ -78,7 +78,9 @@ class JenisHargaSampahController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $jenisharga = JenisHargaSampah::find($id);
+        $jenisharga->update($request->post());
+        return back()->with('success', 'data telah diubah');
     }
 
     /**
@@ -89,8 +91,8 @@ class JenisHargaSampahController extends Controller
      */
     public function destroy($id)
     {
-        $satuan = JenisHargaSampah::findOrFail($id);
-        $satuan->delete();
+        $jenisharga = JenisHargaSampah::findOrFail($id);
+        $jenisharga->delete();
 
         return back();
     }
