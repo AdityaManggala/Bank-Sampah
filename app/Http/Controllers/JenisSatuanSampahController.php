@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\JenisSatuanSampah;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class JenisSatuanSampahController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data = [
@@ -20,22 +16,6 @@ class JenisSatuanSampahController extends Controller
         return view('user.admin.manajemenJenisSatuan.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -43,55 +23,28 @@ class JenisSatuanSampahController extends Controller
         ]);
 
         JenisSatuanSampah::create($request->post());
-        return back()->with('success', 'data telah ditambahkan');
+        return response()->json(['success' => true]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $unit = JenisSatuanSampah::find($id);
+        $unit->nama_jenis_satuan = $request->nama_jenis_satuan;
+        $unit->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        
+        return response()->json(['success' => true]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         $jenissatuan = JenisSatuanSampah::find($id);
         $jenissatuan->update($request->post());
-        return back()->with('success', 'data telah diubah');
+        return response()->json(['success' => true]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $jenissatuan = JenisSatuanSampah::findOrFail($id);
-        $jenissatuan->delete();
-        return back();
+        JenisSatuanSampah::find($id)->delete();
+        return response()->json(['success' => true]);
     }
 }
