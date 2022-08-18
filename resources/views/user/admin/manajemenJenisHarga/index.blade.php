@@ -1,6 +1,6 @@
 @extends('layouts.starter')
 @section('title')
-    Manejemen Jenis harga
+    Manejemen Jenis Harga
 @endsection
 
 @push('css')
@@ -11,6 +11,7 @@
 @endpush
 
 @section('content')
+
 <div class="section-body">
     <div class="row">
         <div class="col-lg-12">
@@ -54,13 +55,14 @@
                     </tr>
                     </tfoot>
                     </table>
+
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.card-body -->
             </div>
+            <!-- /.col-lg-12 -->
         </div>
-        <!-- /.col-lg-12 -->
-    </div>
-</div>
+  </div>
 
 <!-- add data modal -->
 <div class="modal fade" id="add-jenis-harga-modal" aria-hidden="true">
@@ -268,4 +270,3 @@
         }); 
     });
 </script>
-@endpush

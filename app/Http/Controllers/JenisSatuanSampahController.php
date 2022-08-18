@@ -21,6 +21,7 @@ class JenisSatuanSampahController extends Controller
         $request->validate([
             'nama_jenis_satuan' => 'required'
         ]);
+
         JenisSatuanSampah::create($request->post());
         return response()->json(['success' => true]);
     }
@@ -31,6 +32,13 @@ class JenisSatuanSampahController extends Controller
         $unit->nama_jenis_satuan = $request->nama_jenis_satuan;
         $unit->save();
 
+        return response()->json(['success' => true]);
+    }
+    
+    public function update(Request $request, $id)
+    {
+        $jenissatuan = JenisSatuanSampah::find($id);
+        $jenissatuan->update($request->post());
         return response()->json(['success' => true]);
     }
 

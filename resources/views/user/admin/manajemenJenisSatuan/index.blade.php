@@ -1,6 +1,6 @@
 @extends('layouts.starter')
 @section('title')
-    Manejemen Jenis Satuan
+    Manejemen Jenis Satuan Sampah
 @endsection
 
 @push('css')
@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    <!-- SweetAlert2 -->
-    {{-- <link rel="stylesheet" href="{{ asset('') }}plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css"> --}}
 @endpush
 
 @section('content')
@@ -19,7 +17,6 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Data Jenis Harga Sampah</h3>
-                    
                         <a class="btn btn-primary btn-icon-split float-right" data-toggle="modal"
                             data-target="#add-jenis-satuan-modal">
                             <span class="icon text-white-50">
@@ -38,32 +35,33 @@
                     </thead>
                     <tbody>
                         @foreach ($units as $unit)
-                                    <tr class="odd gradeX">
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $unit->nama_jenis_satuan }}</td>
-                                    <td>
-                                        <a href="javascript:void(0)" class="btn btn-warning edit" data-id="{{ $unit->id }}" data-nama="{{ $unit->nama_jenis_satuan }}"><i class="fas fa-edit"></i></a>
-                                        <a href="javascript:void(0)" class="btn btn-danger delete" data-id="{{ $unit->id }}"><i class="fa fa-trash"></i></a>
-                                    </td>
+                            <tr class="odd gradeX">
+                              <td>{{ $loop->iteration }}</td>
+                              <td>{{ $unit->nama_jenis_satuan }}</td>
+                              <td>
+                                  <a href="javascript:void(0)" class="btn btn-warning edit" data-id="{{ $unit->id }}" data-nama="{{ $unit->nama_jenis_satuan }}"><i class="fas fa-edit"></i></a>
+                                  <a href="javascript:void(0)" class="btn btn-danger delete" data-id="{{ $unit->id }}"><i class="fa fa-trash"></i></a>
+                              </td>
+                            </tr>
+                        @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Jenis Satuan</th>
+                                    <th>Aksi</th>
                                 </tr>
-                                @endforeach
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Jenis Satuan</th>
-                        <th>aksi</th>
-                    </tr>
-                    </tfoot>
-                    </table>
-                </div>
-                <!-- /.card-body -->
-            </div>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-</div>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
 
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
+    
 <!-- add data modal -->
 <div class="modal fade" id="add-jenis-satuan-modal" aria-hidden="true">
     <div class="modal-dialog">

@@ -24,6 +24,7 @@ class JenisHargaSampahController extends Controller
         ]);
 
         JenisHargaSampah::create($request->post());
+        
         return response()->json(['success' => true]);
     }
 
@@ -31,13 +32,14 @@ class JenisHargaSampahController extends Controller
     {
         $jenisharga = JenisHargaSampah::find($id);
         $jenisharga->update($request->post());
+
         return response()->json(['success' => true]);
     }
 
     public function destroy($id)
     {
-        $satuan = JenisHargaSampah::findOrFail($id);
-        $satuan->delete();
+        $jenisharga = JenisHargaSampah::findOrFail($id);
+        $jenisharga->delete();
 
         return response()->json(['success' => true]);
     }
