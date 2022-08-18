@@ -34,13 +34,6 @@ class JenisSatuanSampahController extends Controller
 
         return response()->json(['success' => true]);
     }
-    
-    public function update(Request $request, $id)
-    {
-        $jenissatuan = JenisSatuanSampah::find($id);
-        $jenissatuan->update($request->post());
-        return response()->json(['success' => true]);
-    }
 
     public function destroy($id)
     {

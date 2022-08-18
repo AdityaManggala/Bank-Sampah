@@ -26,68 +26,67 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Jenis Satuan</th>
-                        <th>aksi</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($units as $unit)
-                            <tr class="odd gradeX">
-                              <td>{{ $loop->iteration }}</td>
-                              <td>{{ $unit->nama_jenis_satuan }}</td>
-                              <td>
-                                  <a href="javascript:void(0)" class="btn btn-warning edit" data-id="{{ $unit->id }}" data-nama="{{ $unit->nama_jenis_satuan }}"><i class="fas fa-edit"></i></a>
-                                  <a href="javascript:void(0)" class="btn btn-danger delete" data-id="{{ $unit->id }}"><i class="fa fa-trash"></i></a>
-                              </td>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Jenis Satuan</th>
+                                <th>aksi</th>
                             </tr>
-                        @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Jenis Satuan</th>
-                                    <th>Aksi</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($units as $unit)
+                                <tr class="odd gradeX">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $unit->nama_jenis_satuan }}</td>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn btn-warning edit" data-id="{{ $unit->id }}" data-nama="{{ $unit->nama_jenis_satuan }}"><i class="fas fa-edit"></i></a>
+                                    <a href="javascript:void(0)" class="btn btn-danger delete" data-id="{{ $unit->id }}" data-nama="{{ $unit->nama_jenis_satuan }}"><i class="fa fa-trash"></i></a>
+                                </td>
                                 </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
-
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>No</th>
+                                <th>Jenis Satuan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.col-lg-12 -->
         </div>
+        <!-- /.col-lg-12 -->
     </div>
+</div>
     
 <!-- add data modal -->
 <div class="modal fade" id="add-jenis-satuan-modal" aria-hidden="true">
     <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h4 class="modal-title">Tambah Data jenis</h4>
-        </div>
-        <div class="modal-body">
-        <form action="javascript:void(0)" id="AddJenisSatuanForm" name="AddJenisSatuanForm" class="form-horizontal" method="POST">
-            <input type="hidden" name="id" id="id">
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">nama</span>
-                    </div>
-                    <input type="text" class="form-control" id="nama_jenis_satuan" name="nama_jenis_satuan" placeholder="Nama Jenis" value="" maxlength="50" required="">
-                </div>
-            </div>  
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary" id="btn-save" value="addNewSatuan">Save changes
-                </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data jenis</h4>
             </div>
-        </form>
+            <div class="modal-body">
+                <form action="javascript:void(0)" id="AddJenisSatuanForm" name="AddJenisSatuanForm" class="form-horizontal" method="POST">
+                    <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">nama</span>
+                            </div>
+                            <input type="text" class="form-control" id="nama_jenis_satuan" name="nama_jenis_satuan" placeholder="Nama Jenis" value="" maxlength="50" required="">
+                        </div>
+                    </div>  
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary" id="btn-save" value="addNewSatuan">Save changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
         </div>
-        <div class="modal-footer"></div>
-    </div>
     </div>
 </div>
 <!-- end add data modal -->
@@ -95,29 +94,29 @@
 <!-- update data modal -->
 <div class="modal fade" id="edit-jenis-satuan-modal" aria-hidden="true">
     <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h4 class="modal-title">Edit Data Jenis</h4>
-        </div>
-        <div class="modal-body">
-        <form action="javascript:void(0)" id="EditJenisSatuanForm" name="EditJenisSatuanForm" class="form-horizontal" method="POST">
-            <input type="hidden" name="id" id="id_edit">
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">nama</span>
-                    </div>
-                    <input type="text" class="form-control" id="nama_jenis_satuan_edit" name="nama_jenis_satuan" placeholder="Nama Jenis" value="" maxlength="50" required="">
-                </div>
-            </div>  
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary" id="btn-save" value="addNewSatuan">Save changes
-                </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Data Jenis</h4>
             </div>
-        </form>
+            <div class="modal-body">
+                <form action="javascript:void(0)" id="EditJenisSatuanForm" name="EditJenisSatuanForm" class="form-horizontal" method="POST">
+                    <input type="hidden" name="id" id="id_edit">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">nama</span>
+                            </div>
+                            <input type="text" class="form-control" id="nama_jenis_satuan_edit" name="nama_jenis_satuan" placeholder="Nama Jenis" value="" maxlength="50" required="">
+                        </div>
+                    </div>  
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary" id="btn-save" value="addNewSatuan">Save changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
         </div>
-        <div class="modal-footer"></div>
-    </div>
     </div>
 </div>
 <!-- end update modal -->
@@ -236,9 +235,9 @@
         });
 
         $('body').on('click', '.delete', function () {
-                swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
+            var nama = $(this).attr('data-nama');
+            swal({
+                title: `Apakah yakin menghapus ${nama} dari daftar jenis satuan ?`,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -256,7 +255,7 @@
                     dataType: 'json',
                     
                     beforeSend: function() {
-                        swal("Poof! Your imaginary file has been deleted!", {
+                        swal("Data Telah Terhapus", {
                             icon: "success",
                             buttons:false
                         },);
@@ -269,7 +268,7 @@
                 });
                     
                 } else {
-                    swal("Your imaginary file is safe!");
+                    swal(`Data ${nama} Tidak Jadi Dihapus`);
                 }
             });
         }); 

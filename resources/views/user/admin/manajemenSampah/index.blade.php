@@ -24,50 +24,48 @@
                             </span><span class="text">Tambah</span></a>
                 </div>
                 <!-- /.card-header -->
-                <div id="status"></div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Sampah</th>
-                        <th>Jenis Satuan</th>
-                        <th>Jenis harga</th>
-                        <th>harga Satuan</th>
-                        <th>aksi</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($sampah as $item)
-                            <tr class="odd gradeX">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->nama_sampah }}</td>
-                            <td>{{ $item->jenisSatuanSampah->nama_jenis_satuan }}</td>
-                            <td>{{ $item->jenisHargaSampah->nama_jenis_harga }}</td>
-                            <td>{{ $item->harga_sampah }}</td>
-                            <td>
-                                <a href="javascript:void(0)" class="btn btn-warning edit" data-id="{{ $item->id }}" 
-                                    data-nama="{{ $item->nama_sampah }}" 
-                                    data-jenis-satuan-id="{{ $item->jenisSatuanSampah->id }}"
-                                    data-jenis-harga-id="{{ $item->jenisHargaSampah->id }}"
-                                    data-harga-sampah="{{ $item->harga_sampah }}"><i class="fas fa-edit"></i></a>
-                                <a href="javascript:void(0)" class="btn btn-danger delete" data-id="{{ $item->id }}" data-nama="{{ $item->nama_sampah }}"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Sampah</th>
-                        <th>Jenis Satuan</th>
-                        <th>Jenis harga</th>
-                        <th>harga Satuan</th>
-                        <th>aksi</th>
-                    </tr>
-                    </tfoot>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Sampah</th>
+                                <th>Jenis Satuan</th>
+                                <th>Jenis harga</th>
+                                <th>harga Satuan</th>
+                                <th>aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($sampah as $item)
+                                <tr class="odd gradeX">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nama_sampah }}</td>
+                                    <td>{{ $item->jenisSatuanSampah->nama_jenis_satuan }}</td>
+                                    <td>{{ $item->jenisHargaSampah->nama_jenis_harga }}</td>
+                                    <td>{{ $item->harga_sampah }}</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="btn btn-warning edit" data-id="{{ $item->id }}" 
+                                            data-nama="{{ $item->nama_sampah }}" 
+                                            data-jenis-satuan-id="{{ $item->jenisSatuanSampah->id }}"
+                                            data-jenis-harga-id="{{ $item->jenisHargaSampah->id }}"
+                                            data-harga-sampah="{{ $item->harga_sampah }}"><i class="fas fa-edit"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-danger delete" data-id="{{ $item->id }}" data-nama="{{ $item->nama_sampah }}"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Sampah</th>
+                                <th>Jenis Satuan</th>
+                                <th>Jenis harga</th>
+                                <th>harga Satuan</th>
+                                <th>aksi</th>
+                            </tr>
+                        </tfoot>
                     </table>
-                    {{-- {{ $sampah->links() }} --}}
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -79,57 +77,57 @@
 <!-- add data modal -->
 <div class="modal fade" id="add-sampah-modal" aria-hidden="true">
     <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h4 class="modal-title">Tambah Data Sampah</h4>
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambah Data Sampah</h4>
+            </div>
+            <div class="modal-body">
+                <form action="javascript:void(0)" id="AddSampahForm" name="AddSampahForm" class="form-horizontal" method="POST">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Nama Sampah</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="nama sampah" name="nama_sampah" >
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Harga Sampah</span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="harga sampah" name="harga_sampah">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">.00</span>
+                        </div>
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Jenis Satuan</span>
+                        </div>
+                        <select class="form-control" name="jenis_satuan_sampah_id" id="jenis_satuan_sampah_id">
+                            <option value="">pilih</option>
+                            @foreach ($satuan as $item )
+                            <option value="{{ $item->id }}">{{ $item->nama_jenis_satuan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Jenis Harga</span>
+                        </div>
+                        <select class="form-control" name="jenis_harga_sampah_id" id="jenis_harga_sampah_id">
+                            <option value="">pilih</option>
+                            @foreach ($harga as $item )
+                            <option value="{{ $item->id }}">{{ $item->nama_jenis_harga }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary" id="btn-save" value="">Save changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
         </div>
-        <div class="modal-body">
-            <form action="javascript:void(0)" id="AddSampahForm" name="AddSampahForm" class="form-horizontal" method="POST">
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Nama Sampah</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="nama sampah" name="nama_sampah" >
-                </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Harga Sampah</span>
-                    </div>
-                    <input type="number" class="form-control" placeholder="harga sampah" name="harga_sampah">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">.00</span>
-                    </div>
-                </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Jenis Satuan</span>
-                    </div>
-                    <select class="form-control" name="jenis_satuan_sampah_id" id="jenis_satuan_sampah_id">
-                        <option value="">pilih</option>
-                        @foreach ($satuan as $item )
-                        <option value="{{ $item->id }}">{{ $item->nama_jenis_satuan }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Jenis Harga</span>
-                    </div>
-                    <select class="form-control" name="jenis_harga_sampah_id" id="jenis_harga_sampah_id">
-                        <option value="">pilih</option>
-                        @foreach ($harga as $item )
-                        <option value="{{ $item->id }}">{{ $item->nama_jenis_harga }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary" id="btn-save" value="">Save changes
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer"></div>
-    </div>
     </div>
 </div>
 <!-- end add data modal -->

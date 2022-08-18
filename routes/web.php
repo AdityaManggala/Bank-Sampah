@@ -31,15 +31,9 @@ Route::get('/', function () {
 
 Route::post('/login', [LoginController::class, 'authenticate']);
 
-Route::resource('jenis-harga-sampah', JenisHargaSampahController::class); 
-Route::post('/jenis-harga-sampah/add', [JenisHargaSampahController::class, 'store'])->name('admin.add.jenisharga'); 
-Route::put('/jenis-harga-sampah/update/{id}', [JenisHargaSampahController::class, 'update'])->name('admin.update.jenisharga'); 
-Route::delete('/jenis-harga-sampah/delete/{id}', [JenisHargaSampahController::class, 'destroy'])->name('admin.delete.jenisharga'); 
+Route::resource('jenis-harga-sampah', JenisHargaSampahController::class);
 
 Route::resource('jenis-satuan-sampah', JenisSatuanSampahController::class);
-Route::post('/jenis-satuan-sampah/add', [JenisSatuanSampahController::class, 'store'])->name('admin.add.jenissatuan'); 
-Route::put('/jenis-satuan-sampah/update/{id}', [JenisSatuanSampahController::class, 'update'])->name('admin.update.jenissatuan'); 
-Route::delete('/jenis-satuan-sampah/delete/{id}', [JenisSatuanSampahController::class, 'destroy'])->name('admin.delete.jenissatuan'); 
 
 Route::resource('sampah', SampahController::class);
 Route::resource('nasabah', NasabahController::class);
