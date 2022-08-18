@@ -9,11 +9,13 @@ class RekeningNasabahModel extends Model
 {
     use HasFactory;
 
+    
+    public $table = "rekening_nasabah";
     protected $fillable = [
         'nasabah_id',
-        'no_rekening',
         'tipe_transaksi',
         'kredit',
+        'debit',
         'saldo'
     ];
 

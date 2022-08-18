@@ -8,6 +8,7 @@ use App\Http\Controllers\NasabahController;
 use App\Http\Controllers\SampahController;
 use App\Http\Controllers\TransaksiNasabahController;
 use App\Http\Controllers\TransaksiPengepulController;
+use App\Models\NasabahModel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,27 +26,25 @@ use Illuminate\Support\Facades\Route;
 //     return view('Template');
 // });
 // Route::middleware()
-Route::get('/', function () {
-    return view('login');
-});
 
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/', [LoginController::class, 'index']);
 
-Route::resource('jenis-harga-sampah', JenisHargaSampahController::class); 
-Route::post('/jenis-harga-sampah/add', [JenisHargaSampahController::class, 'store'])->name('admin.add.jenisharga'); 
-Route::put('/jenis-harga-sampah/update/{id}', [JenisHargaSampahController::class, 'update'])->name('admin.update.jenisharga'); 
-Route::delete('/jenis-harga-sampah/delete/{id}', [JenisHargaSampahController::class, 'destroy'])->name('admin.delete.jenisharga'); 
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
-Route::resource('jenis-satuan-sampah', JenisSatuanSampahController::class);
-Route::post('/jenis-satuan-sampah/add', [JenisSatuanSampahController::class, 'store'])->name('admin.add.jenissatuan'); 
-Route::put('/jenis-satuan-sampah/update/{id}', [JenisSatuanSampahController::class, 'update'])->name('admin.update.jenissatuan'); 
-Route::delete('/jenis-satuan-sampah/delete/{id}', [JenisSatuanSampahController::class, 'destroy'])->name('admin.delete.jenissatuan'); 
+Route::post('/login', [LoginController::class, 'authenticate'])->name('auth.login');
 
-Route::resource('sampah', SampahController::class);
-Route::resource('nasabah', NasabahController::class);
-route::resource('transaksi-nasabah', TransaksiNasabahController::class);
-route::resource('transaksi-pengepul', TransaksiPengepulController::class);
+Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
-Route::get('/test', function () {
-    return view('layouts.starter');
-});
+Route::resource('jenis-harga-sampah', JenisHargaSampahController::class)->middleware('auth'); 
+
+Route::resource('jenis-satuan-sampah', JenisSatuanSampahController::class)->middleware('auth');
+
+Route::resource('sampah', SampahController::class)->middleware('auth');
+
+Route::resource('nasabah', NasabahController::class)->middleware('auth');
+
+route::resource('transaksi-nasabah', TransaksiNasabahController::class)->middleware('auth');
+
+route::resource('transaksi-pengepul', TransaksiPengepulController::class)->middleware('auth');
+
+Route::get('/test', function () {return view('layouts.starter');})->middleware('auth');

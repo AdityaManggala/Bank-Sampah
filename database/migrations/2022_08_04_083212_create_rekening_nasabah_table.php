@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('rekening_nasabah', function (Blueprint $table) {
             $table->id();
-            $table->string('no_rekening');
             $table->foreignId('nasabah_id')->constrained('nasabah')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('saldo');
-            $table->integer('kredit');
-            $table->string('tipe_transaksi');
+            $table->integer('saldo')->nullable();
+            $table->integer('kredit')->nullable();
+            $table->integer('debit')->nullable();
+            $table->string('tipe_transaksi')->nullable();
             $table->timestamps();
         });
     }

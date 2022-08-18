@@ -60,7 +60,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <form
-                                                                action="{{ route('admin.update.jenissatuan', $unit->id) }}"
+                                                                action="{{ route('jenis-satuan-sampah.update', $unit->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('put')
@@ -70,7 +70,7 @@
                                                                     <div class="col">
                                                                         <label for="">Nama :</label>
                                                                         <input type="text" name="nama_jenis_satuan"
-                                                                            value="{{ $unit->nama_jenis_satuan }}"
+                                                                            placeholder="{{ $unit->nama_jenis_satuan }}"
                                                                             class="form-control" required>
                                                                     </div>
                                                                 </div>
@@ -85,12 +85,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form action="{{ route('admin.delete.jenissatuan', $unit->id) }}"
+                                            <form action="{{ route('jenis-satuan-sampah.destroy', $unit->id) }}"
                                                 method="POST" class="d-inline"
                                                 onsubmit="return confirm('Yakin Iingin hapus data')"">
                                                 @csrf
                                                 @method('delete')
-                                                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                <button class=" btn btn-danger"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -126,7 +126,7 @@
             </div>
             <div class="modal-body">
                 <!-- Penambahan Berat Satuan Sampah -->
-                <form action="{{ route('admin.add.jenissatuan') }}" method="POST">
+                <form action="{{ route('jenis-satuan-sampah.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col">

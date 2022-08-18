@@ -17,7 +17,9 @@ class SampahController extends Controller
     public function index()
     {
         $data = [
-            'sampah' => Sampah::latest()->Paginate(15)
+            'sampah' => Sampah::latest()->Paginate(15),
+            'satuan' => JenisSatuanSampah::all(),
+            'harga' => JenisHargaSampah::all()
         ];
         return view('user.admin.manajemenSampah.index', $data);
     }
@@ -108,8 +110,8 @@ class SampahController extends Controller
     public function destroy($id)
     {
         $data = Sampah::find($id);
-        dd($data);
-        // $data->delete();
-        // return redirect()->route('sampah.index')->with('success', 'data sampah telah dihapus');
+        // dd($data);
+        $data->delete();
+        return redirect()->route('sampah.index')->with('success', 'data sampah telah dihapus');
     }
 }

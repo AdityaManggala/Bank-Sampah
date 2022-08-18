@@ -55,14 +55,14 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="{{ route('admin.update.jenisharga', $price->id) }}" method="POST">
+                                                            <form action="{{ route('jenis-harga-sampah.update', $price->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('put')
                                                                 <div class="row">
                                                                     <input type="hidden" name="id" value="{{ $price->id }}">
                                                                     <div class="col">
                                                                         <label for="">Nama :</label>
-                                                                        <input type="text" name="nama_jenis_harga" value="{{ $price->nama_jenis_harga }}" class="form-control" required>
+                                                                        <input type="text" name="nama_jenis_harga" placeholder="{{ $price->nama_jenis_harga }}" class="form-control" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
@@ -76,7 +76,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form action="{{ route('admin.delete.jenisharga', $price->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin Iingin hapus data')"">
+                                            <form action="{{ route('jenis-harga-sampah.destroy', $price->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin Iingin hapus data')"">
                                                 @csrf
                                                 @method('delete')
                                                 <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
@@ -115,7 +115,7 @@
             </div>
             <div class="modal-body">
                 <!-- Penambahan pelanggan -->
-                <form action="{{ route('admin.add.jenisharga') }}" method="POST">
+                <form action="{{ route('jenis-harga-sampah.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col">
