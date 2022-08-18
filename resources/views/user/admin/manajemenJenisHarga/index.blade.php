@@ -27,69 +27,67 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Jenis Harga</th>
-                        <th>aksi</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($prices as $price)
-                            <tr class="odd gradeX">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $price->nama_jenis_harga }}</td>
-                            <td>
-                                <a href="javascript:void(0)" class="btn btn-warning edit" data-id="{{ $price->id }}" data-nama="{{ $price->nama_jenis_harga }}"><i class="fas fa-edit"></i></a>
-                                <a href="javascript:void(0)" class="btn btn-danger delete" data-id="{{ $price->id }}" data-nama="{{ $price->nama_jenis_harga }}"><i class="fa fa-trash"></i></a>
-                            </td>
-                            
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Jenis Harga</th>
-                        <th>aksi</th>
-                    </tr>
-                    </tfoot>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Jenis Harga</th>
+                                <th>aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($prices as $price)
+                                <tr class="odd gradeX">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $price->nama_jenis_harga }}</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="btn btn-warning edit" data-id="{{ $price->id }}" data-nama="{{ $price->nama_jenis_harga }}"><i class="fas fa-edit"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-danger delete" data-id="{{ $price->id }}" data-nama="{{ $price->nama_jenis_harga }}"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>No</th>
+                                <th>Jenis Harga</th>
+                                <th>aksi</th>
+                            </tr>
+                        </tfoot>
                     </table>
-
-                    </div>
-                    <!-- /.card-body -->
                 </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.col-lg-12 -->
         </div>
-  </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
 
 <!-- add data modal -->
 <div class="modal fade" id="add-jenis-harga-modal" aria-hidden="true">
     <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h4 class="modal-title">Tambah Data jenis</h4>
-        </div>
-        <div class="modal-body">
-        <form action="javascript:void(0)" id="AddJenisHargaForm" name="AddJenisHargaForm" class="form-horizontal" method="POST">
-            {{-- <input type="hidden" name="id" id="id"> --}}
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">nama</span>
-                    </div>
-                    <input type="text" class="form-control" id="nama_jenis_harga" name="nama_jenis_harga" placeholder="Nama Jenis" value="" maxlength="50" required="" autofocus>
-                </div>
-            </div>  
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary" id="btn-save">Save changes
-                </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data jenis</h4>
             </div>
-        </form>
+            <div class="modal-body">
+                <form action="javascript:void(0)" id="AddJenisHargaForm" name="AddJenisHargaForm" class="form-horizontal" method="POST">
+                    {{-- <input type="hidden" name="id" id="id"> --}}
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">nama</span>
+                            </div>
+                            <input type="text" class="form-control" id="nama_jenis_harga" name="nama_jenis_harga" placeholder="Nama Jenis" value="" maxlength="50" required="" autofocus>
+                        </div>
+                    </div>  
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary" id="btn-save">Save changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
         </div>
-        <div class="modal-footer"></div>
-    </div>
     </div>
 </div>
 <!-- end add data modal -->
@@ -97,29 +95,29 @@
 <!-- update data modal -->
 <div class="modal fade" id="edit-jenis-harga-modal" aria-hidden="true">
     <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h4 class="modal-title">Edit Data Jenis</h4>
-        </div>
-        <div class="modal-body">
-        <form action="javascript:void(0)" id="EditJenisHargaForm" name="EditJenisHargaForm" class="form-horizontal" method="POST">
-            <input type="hidden" name="id" id="id_edit">
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">nama</span>
-                    </div>
-                    <input type="text" class="form-control" id="nama_jenis_harga_edit" name="nama_jenis_harga" placeholder="Nama Jenis" value="" maxlength="50" required="">
-                </div>
-            </div>  
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary" id="btn-save">Save changes
-                </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Data Jenis</h4>
             </div>
-        </form>
+            <div class="modal-body">
+                <form action="javascript:void(0)" id="EditJenisHargaForm" name="EditJenisHargaForm" class="form-horizontal" method="POST">
+                    <input type="hidden" name="id" id="id_edit">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">nama</span>
+                            </div>
+                            <input type="text" class="form-control" id="nama_jenis_harga_edit" name="nama_jenis_harga" placeholder="Nama Jenis" value="" maxlength="50" required="">
+                        </div>
+                    </div>  
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary" id="btn-save">Save changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
         </div>
-        <div class="modal-footer"></div>
-    </div>
     </div>
 </div>
 <!-- end update modal -->
@@ -270,3 +268,4 @@
         }); 
     });
 </script>
+@endpush
