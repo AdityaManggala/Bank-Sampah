@@ -7,11 +7,7 @@ use Illuminate\Http\Request;
 
 class JenisHargaSampahController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $data = [
@@ -21,77 +17,28 @@ class JenisHargaSampahController extends Controller
         return view('user.admin.manajemenJenisHarga.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
-            'nama_jenis_harga_sampah' => 'required'
+            'nama_jenis_harga' => 'required'
         ]);
 
         JenisHargaSampah::create($request->post());
-        return back()->with('success', 'data telah ditambahkan');
+        return response()->json(['success' => true]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $jenisharga = JenisHargaSampah::find($id);
+        $jenisharga->update($request->post());
+        return response()->json(['success' => true]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $satuan = JenisHargaSampah::findOrFail($id);
         $satuan->delete();
 
-        return back();
+        return response()->json(['success' => true]);
     }
 }
