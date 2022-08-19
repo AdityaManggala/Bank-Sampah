@@ -10,8 +10,9 @@ class JenisSatuanSampah extends Model
     use HasFactory;
 
     public $table = "jenis_satuan_sampah";
+    protected $primaryKey = "id";
     protected $fillable = [
-        'nama_jenis_satuan'
+        'nama_jenis_satuan',
     ];
 
     public function sampah()
