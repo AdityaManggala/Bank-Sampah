@@ -5,8 +5,6 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
 
         <title>Startmin - Bootstrap Admin Theme</title>
 
@@ -34,18 +32,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
+
+                    @if (session()->has('loginError'))
+                    <div class="alert alert-danger alert-dismissible show" role="alert">
+                        {{ session('loginError') }}
+                        <button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                    @endif
+                     
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Please Sign In</h3>
                         </div>
                         <div class="panel-body">
-                            <form role="form" action="/login" method="post">
+                            <form role="form" action="{{ route('auth.login') }}" method="post">
                                 @csrf
                                 <fieldset>
                                     <div class="form-group">
-                                        <input class="form-control @error('email') is-invalid @enderror" 
-                                        placeholder="E-mail" name="email" type="email" value="{{ old('email') }}" autofocus>
-                                        @error('email')
+                                        <input class="form-control @error('username') is-invalid @enderror" 
+                                        placeholder="Username" name="username" type="text" value="{{ old('username') }}" autofocus>
+                                        @error('username')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>    
@@ -80,6 +86,7 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="{{ asset('') }}js/startmin.js"></script>
+        <script src="{{ asset('') }}plugins/popper/popper.min.js"></script>
 
     </body>
 </html>

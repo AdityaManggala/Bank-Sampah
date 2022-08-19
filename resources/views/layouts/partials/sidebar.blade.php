@@ -67,6 +67,22 @@
                         <p>Data Sampah</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('nasabah.index') }}" class="nav-link @if (Route::is('nasabah.index'))
+                                    active
+                                @endif">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Nasabah</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('transaksi-nasabah.index') }}" class="nav-link @if (Route::is('transaksi-nasabah.index'))
+                                    active
+                                @endif">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Transaksi Nasabah</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
             </ul>

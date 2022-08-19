@@ -20,9 +20,8 @@ return new class extends Migration
             $table->string('alamat_nasabah');
             $table->string('no_rekening');
             $table->integer('jml_keluarga');
-            $table->integer('rata_volume_smph_harian');
-            $table->rememberToken();
-            $table->timestamp('tgl_msk');
+            $table->integer('rata_volume_smph_harian')->nullable();
+            $table->date('tgl_msk');
         });
     }
 
