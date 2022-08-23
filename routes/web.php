@@ -33,18 +33,26 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::post('/login', [LoginController::class, 'authenticate'])->name('auth.login');
 
-Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', function () {
+        return view('user.admin.dashboard');
+    })->name('dashboard');
 
-Route::resource('jenis-harga-sampah', JenisHargaSampahController::class)->middleware('auth'); 
+    Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
-Route::resource('jenis-satuan-sampah', JenisSatuanSampahController::class)->middleware('auth');
+    Route::resource('jenis-harga-sampah', JenisHargaSampahController::class);
 
-Route::resource('sampah', SampahController::class)->middleware('auth');
+    Route::resource('jenis-satuan-sampah', JenisSatuanSampahController::class);
 
-Route::resource('nasabah', NasabahController::class)->middleware('auth');
+    Route::resource('sampah', SampahController::class);
 
-route::resource('transaksi-nasabah', TransaksiNasabahController::class)->middleware('auth');
+    Route::resource('nasabah', NasabahController::class);
 
-route::resource('transaksi-pengepul', TransaksiPengepulController::class)->middleware('auth');
+    route::resource('transaksi-nasabah', TransaksiNasabahController::class);
 
-Route::get('/test', function () {return view('layouts.starter');})->middleware('auth');
+    route::resource('transaksi-pengepul', TransaksiPengepulController::class);
+});
+
+// Route::get('/test', function () {
+//     return view('layouts.starter');
+// })->middleware('auth');
