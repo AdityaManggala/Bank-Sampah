@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\AdminModel;
+use App\Models\NasabahModel;
+use App\Models\TransaksiNasabahModel;
 
 use Illuminate\Http\Request;
 
@@ -13,7 +16,20 @@ class TransaksiNasabahController extends Controller
      */
     public function index()
     {
-        return view('user.nasabah.transaksi');
+        $data = [
+            'admin' => AdminModel::all(),
+            'nasabah' => NasabahModel::all(),
+            'trnasabah' => TransaksiNasabahModel::all()
+        ];
+        return view('user.nasabah.transaksi', $data);
+    }
+
+    public function indexTransaksi()
+    {
+        $data = [
+            'nasabah' => NasabahModel::all()
+        ];
+        return view('user.nasabah.transaksiAdd', $data);
     }
 
     /**
@@ -34,7 +50,17 @@ class TransaksiNasabahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'admin_id' => 'required',
+            'nasabah_id' => 'required',
+            'tipe_transaksi' => 'required'
+        ]);
+
+        
+        $getId = TransaksiNasabahModel::create($request->post());
+
+
+        return redirect()->route('detail-transaksi-nasabah.show', $getId );
     }
 
     /**
@@ -66,9 +92,9 @@ class TransaksiNasabahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**

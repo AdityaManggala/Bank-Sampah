@@ -31,11 +31,7 @@ class SampahController extends Controller
      */
     public function create()
     {
-        $data = [
-            'satuan' => JenisSatuanSampah::all(),
-            'harga' => JenisHargaSampah::all(),
-        ];
-        return view('user.admin.manajemenSampah.create', $data);
+        //
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DetailTransaksiNasabahController;
 use App\Http\Controllers\JenisHargaSampahController;
 use App\Http\Controllers\JenisSatuanHargaController;
 use App\Http\Controllers\JenisSatuanSampahController;
@@ -35,6 +36,10 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('auth.logi
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
+Route::get('/transaksi-nasabah/indexTransaksi', [TransaksiNasabahController::class, 'indexTransaksi'])->name('index.transaksi');
+
+Route::post('/detail-transaksi-nasabah/checkout', [DetailTransaksiNasabahController::class, 'checkout'])->name('checkout.transaksi');
+
 Route::resource('jenis-harga-sampah', JenisHargaSampahController::class)->middleware('auth'); 
 
 Route::resource('jenis-satuan-sampah', JenisSatuanSampahController::class)->middleware('auth');
@@ -43,8 +48,10 @@ Route::resource('sampah', SampahController::class)->middleware('auth');
 
 Route::resource('nasabah', NasabahController::class)->middleware('auth');
 
-route::resource('transaksi-nasabah', TransaksiNasabahController::class)->middleware('auth');
+Route::resource('transaksi-nasabah', TransaksiNasabahController::class)->middleware('auth');
 
-route::resource('transaksi-pengepul', TransaksiPengepulController::class)->middleware('auth');
+Route::resource('detail-transaksi-nasabah', DetailTransaksiNasabahController::class)->middleware('auth');
+
+Route::resource('transaksi-pengepul', TransaksiPengepulController::class)->middleware('auth');
 
 Route::get('/test', function () {return view('layouts.starter');})->middleware('auth');
