@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
+    public $timestamps = false;
     /**
      * Run the migrations.
      *
@@ -17,9 +19,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaksi_nasabah_id')->constrained('transaksi_nasabah')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('sampah_id')->constrained('sampah')->onDelete('cascade')->onUpdate('cascade');
-            $table->double('kuantitas');
-            $table->BigInteger('subtotal_harga');
-            $table->timestamps();
+            $table->double('kuantitas')->nullable();
+            $table->BigInteger('subtotal_harga')->nullable();
         });
     }
 

@@ -19,7 +19,6 @@ class RekeningNasabahModel extends Model
         'saldo'
     ];
 
-
     public function nasabah()
     {
         return $this->belongsTo(NasabahModel::class);

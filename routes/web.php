@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DetailTransaksiNasabahController;
 use App\Http\Controllers\JenisHargaSampahController;
 use App\Http\Controllers\JenisSatuanHargaController;
 use App\Http\Controllers\JenisSatuanSampahController;
@@ -38,6 +39,11 @@ Route::middleware('auth')->group(function () {
         return view('user.admin.dashboard');
     })->name('dashboard');
 
+
+    Route::get('/transaksi-nasabah/indexTransaksi', [TransaksiNasabahController::class, 'indexTransaksi'])->name('index.transaksi');
+
+    Route::post('/detail-transaksi-nasabah/checkout', [DetailTransaksiNasabahController::class, 'checkout'])->name('checkout.transaksi');
+
     Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
     Route::resource('jenis-harga-sampah', JenisHargaSampahController::class);
@@ -45,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('jenis-satuan-sampah', JenisSatuanSampahController::class);
 
     Route::resource('sampah', SampahController::class);
+
+    Route::resource('detail-transaksi-nasabah', DetailTransaksiNasabahController::class);
 
     Route::resource('nasabah', NasabahController::class);
 

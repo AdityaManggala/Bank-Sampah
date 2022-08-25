@@ -9,12 +9,16 @@ class TransaksiNasabahModel extends Model
 {
     use HasFactory;
 
+    public $table = "transaksi_nasabah";
     protected $fillable = [
         'admin_id',
         'nasabah_id',
-        'grand_total_sampah_nasabah',
-        'grand_total_berat',
-        'tgl_transaksi'
+        'tipe_transaksi',
+        'status',
+        'grand_total_harga',
+        'created_at',
+        'updated_ad',
+        'status'
     ];
 
     public function nasabah()

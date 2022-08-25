@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
+    
     /**
      * Run the migrations.
      *
@@ -16,10 +18,11 @@ return new class extends Migration
         Schema::create('transaksi_nasabah', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nasabah_id')->constrained('nasabah')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('admin_id')->constrained('admin');
-            $table->bigInteger('grand_total_harga');
-            $table->double('grand_total_berat', 3, 2);
-            $table->timestamp('tgl_transaksi');
+            $table->foreignId('admin_id')->constrained('admin')->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('tipe_transaksi', ['debit', 'kredit'])->nullable();
+            $table->bigInteger('grand_total_harga')->nullable();
+            $table->integer('status');
+            $table->timestamps();
         });
     }
 

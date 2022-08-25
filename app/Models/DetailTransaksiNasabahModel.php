@@ -9,6 +9,8 @@ class DetailTransaksiNasabahModel extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    public $table = "detail_transaksi_nasabah";
     protected $fillable = [
         'sampah_id',
         'transaksi_nasabah_id',
@@ -18,7 +20,7 @@ class DetailTransaksiNasabahModel extends Model
 
     public function sampah()
     {
-        return $this->belongsTo(SampahModel::class);
+        return $this->belongsTo(Sampah::class);
     }
 
     public function transaksiNasabah()
