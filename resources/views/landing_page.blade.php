@@ -29,7 +29,7 @@
                 <a class="nav-link" href="{{ route('home') }}">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link btn btn-warning" href="{{ route('auth.login') }}">Link</a>
+                <a class="nav-link btn btn-warning" href="{{ route('auth.login') }}">Login</a>
               </li>
             </ul>
           </div>
