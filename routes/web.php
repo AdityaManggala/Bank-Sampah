@@ -4,6 +4,7 @@ use App\Http\Controllers\DetailTransaksiNasabahController;
 use App\Http\Controllers\JenisHargaSampahController;
 use App\Http\Controllers\JenisSatuanHargaController;
 use App\Http\Controllers\JenisSatuanSampahController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NasabahController;
 use App\Http\Controllers\SampahController;
@@ -28,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 // });
 // Route::middleware()
 
-Route::get('/', [LoginController::class, 'index']);
+Route::get('/', LandingPageController::class)->name('home');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
