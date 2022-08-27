@@ -85,7 +85,7 @@ class NasabahController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -114,5 +114,26 @@ class NasabahController extends Controller
         // dd($data);
         $data->delete();
         return redirect()->route('nasabah.index')->with('success', 'data nasabah telah dihapus');
+    }
+
+    public function addSaldo(Request $request)
+    {
+        $debitAwal = RekeningNasabahModel::where('id', $request->id)->value('debit');
+        $kreditAwal = RekeningNasabahModel::where('id', $request->id)->value('kredit');
+        $addDebit = $debitAwal + $request->debit;
+        $addSaldo = $addDebit - $kreditAwal;
+        $idNasabah = RekeningNasabahModel::findOrFail($request->id);
+        $idNasabah->update([
+            'debit' => $addDebit,
+            'saldo' => $addSaldo
+        ]);
+
+        $getIdNasabah = [
+            'id' => $request->id,
+            'grand'=>$request->debit,
+            'id_transaksi'=>$request->id_transaksi
+        ];
+
+        return redirect()->route('end.transaksi', $getIdNasabah);
     }
 }

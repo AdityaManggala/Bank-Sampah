@@ -10,6 +10,7 @@ use App\Http\Controllers\SampahController;
 use App\Http\Controllers\TransaksiNasabahController;
 use App\Http\Controllers\TransaksiPengepulController;
 use App\Models\NasabahModel;
+use App\Models\TransaksiNasabahModel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +39,13 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
 Route::get('/transaksi-nasabah/indexTransaksi', [TransaksiNasabahController::class, 'indexTransaksi'])->name('index.transaksi');
 
+Route::get('/transaksi-nasabah/transaksiSelesai', [TransaksiNasabahController::class, 'transaksiSelesai'])->name('end.transaksi');
+
+Route::post('/detail-transaksi-nasabah/batalTransaksi/{id}', [DetailTransaksiNasabahController::class, 'batalTransaksi'])->name('batal.transaksi');
+
 Route::post('/detail-transaksi-nasabah/checkout', [DetailTransaksiNasabahController::class, 'checkout'])->name('checkout.transaksi');
+
+Route::get('/nasabah/tambahSaldo', [NasabahController::class, 'addSaldo'])->name('nasabah.addSaldo');
 
 Route::resource('jenis-harga-sampah', JenisHargaSampahController::class)->middleware('auth'); 
 
