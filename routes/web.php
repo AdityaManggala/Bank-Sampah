@@ -35,30 +35,37 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::post('/login', [LoginController::class, 'authenticate'])->name('auth.login');
 
-Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+Route::middleware('auth')->group(function () { 
+    
+    Route::get('dashboard', function () { return view('user.admin.dashboard'); })->name('dashboard');
 
-Route::get('/transaksi-nasabah/indexTransaksi', [TransaksiNasabahController::class, 'indexTransaksi'])->name('index.transaksi');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
-Route::get('/transaksi-nasabah/transaksiSelesai', [TransaksiNasabahController::class, 'transaksiSelesai'])->name('end.transaksi');
+    Route::get('/transaksi-nasabah/indexTransaksi', [TransaksiNasabahController::class, 'indexTransaksi'])->name('index.transaksi');
 
-Route::post('/detail-transaksi-nasabah/batalTransaksi/{id}', [DetailTransaksiNasabahController::class, 'batalTransaksi'])->name('batal.transaksi');
+    Route::get('/transaksi-nasabah/transaksiSelesai', [TransaksiNasabahController::class, 'transaksiSelesai'])->name('end.transaksi');
 
-Route::post('/detail-transaksi-nasabah/checkout', [DetailTransaksiNasabahController::class, 'checkout'])->name('checkout.transaksi');
+    Route::post('/detail-transaksi-nasabah/batalTransaksi/{id}', [DetailTransaksiNasabahController::class, 'batalTransaksi'])->name('batal.transaksi');
 
-Route::get('/nasabah/tambahSaldo', [NasabahController::class, 'addSaldo'])->name('nasabah.addSaldo');
+    Route::post('/detail-transaksi-nasabah/checkout', [DetailTransaksiNasabahController::class, 'checkout'])->name('checkout.transaksi');
 
-Route::resource('jenis-harga-sampah', JenisHargaSampahController::class)->middleware('auth'); 
+    Route::get('/nasabah/tambahSaldo', [NasabahController::class, 'addSaldo'])->name('nasabah.addSaldo');
 
-Route::resource('jenis-satuan-sampah', JenisSatuanSampahController::class)->middleware('auth');
+    Route::resource('jenis-harga-sampah', JenisHargaSampahController::class)->middleware('auth');
 
-Route::resource('sampah', SampahController::class)->middleware('auth');
+    Route::resource('jenis-satuan-sampah', JenisSatuanSampahController::class);
 
-Route::resource('nasabah', NasabahController::class)->middleware('auth');
+    Route::resource('sampah', SampahController::class);
 
-Route::resource('transaksi-nasabah', TransaksiNasabahController::class)->middleware('auth');
+    Route::resource('detail-transaksi-nasabah', DetailTransaksiNasabahController::class);
 
-Route::resource('detail-transaksi-nasabah', DetailTransaksiNasabahController::class)->middleware('auth');
+    Route::resource('nasabah', NasabahController::class);
 
-Route::resource('transaksi-pengepul', TransaksiPengepulController::class)->middleware('auth');
+    route::resource('transaksi-nasabah', TransaksiNasabahController::class);
 
-Route::get('/test', function () {return view('layouts.starter');})->middleware('auth');
+    route::resource('transaksi-pengepul', TransaksiPengepulController::class);
+});
+
+// Route::get('/test', function () {
+//     return view('layouts.starter');
+// })->middleware('auth');
