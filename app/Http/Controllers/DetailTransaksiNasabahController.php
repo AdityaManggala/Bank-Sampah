@@ -80,8 +80,14 @@ class DetailTransaksiNasabahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // pengecualian mohon maklumi
     public function edit($id)
     {
+        $data = [
+            'dtrans' => DetailTransaksiNasabahModel::where('transaksi_nasabah_id', $id)->get()
+        ];
+        // dd($data);
+        return view('user.nasabah.detailTransaksi', $data);
     }
 
     /**
@@ -113,9 +119,7 @@ class DetailTransaksiNasabahController extends Controller
      */
     public function destroy($id)
     {
-        $detailtransaksi = DetailTransaksiNasabahModel::findOrFail($id);
-        $detailtransaksi->delete();
-        return back();
+        
     }
 
     public function checkout(Request $request)
@@ -125,6 +129,15 @@ class DetailTransaksiNasabahController extends Controller
             'transaksi_id' => $request->transaksi_nasabah_id
         ];
 
-        return redirect()->route('transaksi-nasabah.update', $data );
+        return view('user.nasabah.transaksiCheckout', $data);
+    }
+
+    public function batalTransaksi($id)
+    {
+        $idDtrans = TransaksiNasabahModel::findOrFail($id);
+        $idDtrans->update([
+            'status' => '0'
+        ]);
+        return back()->with('success', 'data telah diubah');
     }
 }

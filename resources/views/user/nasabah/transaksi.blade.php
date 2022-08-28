@@ -54,15 +54,29 @@
                                             Transaksi Dibatalkan
                                             @else
                                             {{ $transaksi->updated_at }}
-                                                
                                             @endif
                                         </td>
                                         <td>{{ $transaksi->tipe_transaksi }}</td>
-                                        <td>{{ $transaksi->grand_total_harga }}</td>
-                                        <td>
+                                        <td>Rp. {{ $transaksi->grand_total_harga }}</td>
+                                        <td>@if ($transaksi->status==1)
                                             <form action="{{ route('detail-transaksi-nasabah.show', $transaksi->id) }}" class="d-inline">
-                                                <button class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-warning"><i class="fa fa-eye"></i></button>
                                             </form>
+                                            <form action="{{ route('batal.transaksi', $transaksi->id) }}" class="d-inline" method="POST"
+                                                onsubmit="return confirm('Yakin Ingin batalkan transaksi ?')">
+                                                @csrf
+                                                @method('post')
+                                                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                            @elseif ($transaksi->status==0)
+                                            Transaksi Dibatalkan
+                                            @else
+                                            Transaksi Selesai
+                                            {{-- tak coba nggae route anyar g iso. iso'e nggae route edit gawe nge GET id transaksi T_T --}}
+                                            <form action="{{ route('detail-transaksi-nasabah.edit', $transaksi->id) }}" class="d-inline">
+                                                <button class="btn btn-warning"><i class="fa fa-eye"></i></button>
+                                            </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

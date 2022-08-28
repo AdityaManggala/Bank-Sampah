@@ -26,15 +26,6 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="form-group mt-3">
-                                <label>Harga Total</label>
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Rp.</div>
-                                    <input type="text" id="total" name="total" value=""
-                                        class="form-control currency" readonly="">
-                                </div>
-                            </div>
-
                             {{-- start fo card pilih sampah --}}
                             <form action="{{ route('detail-transaksi-nasabah.store') }}" method="POST">
                                 @csrf

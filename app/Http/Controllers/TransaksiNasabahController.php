@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\AdminModel;
 use App\Models\NasabahModel;
 use App\Models\TransaksiNasabahModel;
@@ -56,11 +57,11 @@ class TransaksiNasabahController extends Controller
             'tipe_transaksi' => 'required'
         ]);
 
-        
+
         $getId = TransaksiNasabahModel::create($request->post());
 
 
-        return redirect()->route('detail-transaksi-nasabah.show', $getId );
+        return redirect()->route('detail-transaksi-nasabah.show', $getId);
     }
 
     /**
@@ -92,9 +93,15 @@ class TransaksiNasabahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        dd($request);
+        $getIdNasabah = [
+            'id' => TransaksiNasabahModel::where('id', $id)->value('nasabah_id'),
+            'debit'=>$request->grand_total_harga,
+            'id_transaksi' => $id
+        ];
+
+        return redirect()->route('nasabah.addSaldo', $getIdNasabah);
     }
 
     /**
@@ -107,4 +114,16 @@ class TransaksiNasabahController extends Controller
     {
         //
     }
+
+    public function transaksiSelesai(Request $request)
+    {
+        $idDtrans = TransaksiNasabahModel::findOrFail($request->id_transaksi);
+        $idDtrans->update([
+            'grand_total_harga' => $request->grand,
+            'status' => '2'
+        ]);
+        return redirect()->route('transaksi-nasabah.index');
+    }
+
+    
 }
