@@ -50,7 +50,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/detail-transaksi-nasabah/checkout', [DetailTransaksiNasabahController::class, 'checkout'])->name('checkout.transaksi');
 
+    Route::get('/nasabah/tambahKredit', [NasabahController::class, 'substractSaldo'])->name('nasabah.substractSaldo');
+
     Route::get('/nasabah/tambahSaldo', [NasabahController::class, 'addSaldo'])->name('nasabah.addSaldo');
+    
+    Route::get('/nasabah/ambilSaldo', [NasabahController::class, 'ambilSaldo'])->name('nasabah.ambilSaldo');
 
     Route::resource('jenis-harga-sampah', JenisHargaSampahController::class)->middleware('auth');
 

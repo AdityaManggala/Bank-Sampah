@@ -48,7 +48,7 @@
                                         <td>{{ $norek->nasabah->no_rekening }}</td>
                                         <td>{{ $norek->nasabah->tgl_msk }}</td>
                                         <td>{{ $norek->nasabah->rata_volume_smph_harian }}</td>
-                                        <td>{{ $norek->saldo }}</td>
+                                        <td>Rp. {{ $norek->saldo }}</td>
                                         <td>
                                             <button class="btn btn-warning" data-toggle="modal"
                                                 data-target="#editModal{{ $norek->nasabah->id }}"><i

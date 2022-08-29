@@ -48,34 +48,54 @@
                                         <td>{{ $transaksi->nasabah->no_rekening }}</td>
                                         <td>{{ $transaksi->created_at }}</td>
                                         <td>
-                                            @if ($transaksi->status==1)
-                                            Transaksi Belum Selesai
-                                            @elseif ($transaksi->status==0)
-                                            Transaksi Dibatalkan
+                                            @if ($transaksi->status == 1)
+                                                Transaksi Belum Selesai
+                                            @elseif ($transaksi->status == 0)
+                                                Transaksi Dibatalkan
                                             @else
-                                            {{ $transaksi->updated_at }}
+                                                {{ $transaksi->updated_at }}
                                             @endif
                                         </td>
                                         <td>{{ $transaksi->tipe_transaksi }}</td>
                                         <td>Rp. {{ $transaksi->grand_total_harga }}</td>
-                                        <td>@if ($transaksi->status==1)
-                                            <form action="{{ route('detail-transaksi-nasabah.show', $transaksi->id) }}" class="d-inline">
-                                                <button class="btn btn-warning"><i class="fa fa-eye"></i></button>
-                                            </form>
-                                            <form action="{{ route('batal.transaksi', $transaksi->id) }}" class="d-inline" method="POST"
-                                                onsubmit="return confirm('Yakin Ingin batalkan transaksi ?')">
-                                                @csrf
-                                                @method('post')
-                                                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                            </form>
-                                            @elseif ($transaksi->status==0)
-                                            Transaksi Dibatalkan
+                                        <td>
+                                            @if ($transaksi->status == 1)
+                                                @if ($transaksi->tipe_transaksi == 'debit')
+                                                    <form
+                                                        action="{{ route('detail-transaksi-nasabah.show', $transaksi->id) }}"
+                                                        class="d-inline">
+                                                        <button class="btn btn-warning"><i class="fa fa-eye"></i></button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('nasabah.ambilSaldo') }}" class="d-inline">
+                                                        <input type="hidden" name="transaksi_id"
+                                                            value="{{ $transaksi->id }}" class="form-control" required>
+                                                        <input type="hidden" name="nasabah_id"
+                                                            value="{{ $transaksi->nasabah_id }}" class="form-control"
+                                                            required>
+                                                        <button class="btn btn-primary"><i class="fa fa-eye"></i></button>
+                                                    </form>
+                                                @endif
+
+                                                <form action="{{ route('batal.transaksi', $transaksi->id) }}"
+                                                    class="d-inline" method="POST"
+                                                    onsubmit="return confirm('Yakin Ingin batalkan transaksi ?')">
+                                                    @csrf
+                                                    @method('post')
+                                                    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            @elseif ($transaksi->status == 0)
+                                                Transaksi Dibatalkan
                                             @else
-                                            Transaksi Selesai
-                                            {{-- tak coba nggae route anyar g iso. iso'e nggae route edit gawe nge GET id transaksi T_T --}}
-                                            <form action="{{ route('detail-transaksi-nasabah.edit', $transaksi->id) }}" class="d-inline">
-                                                <button class="btn btn-warning"><i class="fa fa-eye"></i></button>
-                                            </form>
+                                                Transaksi Selesai
+                                                {{-- tak coba nggae route anyar g iso. iso'e nggae route edit gawe nge GET id transaksi T_T --}}
+                                                @if ($transaksi->tipe_transaksi == 'debit')
+                                                    <form action="{{ route('detail-transaksi-nasabah.edit', $transaksi->id) }}"
+                                                        class="d-inline">
+                                                        <button class="btn btn-warning"><i class="fa fa-eye"></i></button>
+                                                    </form>
+                                                @else
+                                                @endif
                                             @endif
                                         </td>
                                     </tr>

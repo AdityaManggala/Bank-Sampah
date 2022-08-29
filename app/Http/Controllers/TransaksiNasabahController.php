@@ -51,17 +51,26 @@ class TransaksiNasabahController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'admin_id' => 'required',
-            'nasabah_id' => 'required',
-            'tipe_transaksi' => 'required'
-        ]);
-
-
-        $getId = TransaksiNasabahModel::create($request->post());
-
-
-        return redirect()->route('detail-transaksi-nasabah.show', $getId);
+        if ($request->tipe_transaksi == 'debit') {
+            $request->validate([
+                'admin_id' => 'required',
+                'nasabah_id' => 'required',
+                'tipe_transaksi' => 'required'
+            ]);
+            $getId = TransaksiNasabahModel::create($request->post());
+            return redirect()->route('detail-transaksi-nasabah.show', $getId);
+        } else {
+            $request->validate([
+                'admin_id' => 'required',
+                'nasabah_id' => 'required',
+                'tipe_transaksi' => 'required'
+            ]);
+            $getNasabah = [
+                'transaksi_id' => TransaksiNasabahModel::create($request->post()),
+                'nasabah_id' => $request->nasabah_id
+            ];
+            return redirect()->route('nasabah.ambilSaldo', $getNasabah);
+        }
     }
 
     /**
@@ -97,7 +106,7 @@ class TransaksiNasabahController extends Controller
     {
         $getIdNasabah = [
             'id' => TransaksiNasabahModel::where('id', $id)->value('nasabah_id'),
-            'debit'=>$request->grand_total_harga,
+            'debit' => $request->grand_total_harga,
             'id_transaksi' => $id
         ];
 
@@ -124,6 +133,4 @@ class TransaksiNasabahController extends Controller
         ]);
         return redirect()->route('transaksi-nasabah.index');
     }
-
-    
 }
