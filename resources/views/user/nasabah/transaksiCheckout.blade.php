@@ -17,8 +17,8 @@
                 <div class="container-fluid">
                     <div class="card card-primary shadow mb-4">
                         <div class="card-header py-3">
-                            <div class="card-title">Tambah Transaksi</div>
-                            <a href="" class="btn btn-info float-right">Kembali</a>
+                            <div class="card-title">Check Out Transaksi untuk nasabah</div>
+                            
                         </div>
                         <div class="card-body">
                             <form action="{{ route('transaksi-nasabah.update', $transaksi_id) }}" method="POST">
@@ -37,6 +37,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary float-right mt-3">Check Out</button>
+                                <a href="{{ route('transaksi-nasabah.index') }}" class="btn btn-danger float-right mt-3">Batal</a>
                             </form>
                         </div>
                     </div>

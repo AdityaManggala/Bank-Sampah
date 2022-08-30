@@ -50,8 +50,6 @@
                                         <td>
                                             @if ($transaksi->status == 1)
                                                 Transaksi Belum Selesai
-                                            @elseif ($transaksi->status == 0)
-                                                Transaksi Dibatalkan
                                             @else
                                                 {{ $transaksi->updated_at }}
                                             @endif
@@ -85,12 +83,13 @@
                                                     <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                                 </form>
                                             @elseif ($transaksi->status == 0)
-                                                Transaksi Dibatalkan
+                                                <span class="badge badge-danger">Dibatalkan</span>
                                             @else
-                                                Transaksi Selesai
+                                                <span class="badge badge-success">Sudah Checkout</span>
                                                 {{-- tak coba nggae route anyar g iso. iso'e nggae route edit gawe nge GET id transaksi T_T --}}
                                                 @if ($transaksi->tipe_transaksi == 'debit')
-                                                    <form action="{{ route('detail-transaksi-nasabah.edit', $transaksi->id) }}"
+                                                    <form
+                                                        action="{{ route('detail-transaksi-nasabah.edit', $transaksi->id) }}"
                                                         class="d-inline">
                                                         <button class="btn btn-warning"><i class="fa fa-eye"></i></button>
                                                     </form>

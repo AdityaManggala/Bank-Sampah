@@ -22,7 +22,7 @@
                                     {{ $trans->nasabah->nama_nasabah }}
                                 @endforeach
                             </div>
-                            <a href="" class="btn btn-info float-right">Kembali</a>
+                            <a href="{{ route('transaksi-nasabah.index') }}" class="btn btn-info float-right">Kembali</a>
                         </div>
                         <div class="card-body">
 
