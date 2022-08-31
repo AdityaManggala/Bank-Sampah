@@ -19,7 +19,6 @@
                     <div class="card card-primary shadow mb-4">
                         <div class="card-header py-3">
                             <div class="card-title">Detail Transaksi</div>
-                            <a href="" class="btn btn-info float-right">Kembali</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -44,8 +43,8 @@
                                                 <input type="hidden" name="id_transaksi" value="{{ $transaksi_id }}"
                                                     class="form-control">
                                             </div>
-                                            <button type="submit" class="btn btn-primary float-right mt-3">Check
-                                                Out</button>
+                                            <button type="submit" class="btn btn-primary float-right mt-3">Check Out</button>
+                                            <a href="{{ route('transaksi-nasabah.index') }}" class="btn btn-danger float-right mt-3">Batal</a>
                                         </form>
                                     </div>
                                 </div>

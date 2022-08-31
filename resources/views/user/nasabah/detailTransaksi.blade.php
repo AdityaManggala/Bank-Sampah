@@ -19,7 +19,7 @@
                     <div class="card card-primary shadow mb-4">
                         <div class="card-header py-3">
                             <div class="card-title">Detail Transaksi</div>
-                            <a href="" class="btn btn-info float-right">Kembali</a>
+                            <a href="{{ route('transaksi-nasabah.index') }}" class="btn btn-info float-right">Kembali</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
