@@ -86,6 +86,7 @@
                                                 <span class="badge badge-danger">Dibatalkan</span>
                                             @else
                                                 <span class="badge badge-success">Sudah Checkout</span>
+                                                
                                                 {{-- tak coba nggae route anyar g iso. iso'e nggae route edit gawe nge GET id transaksi T_T --}}
                                                 @if ($transaksi->tipe_transaksi == 'debit')
                                                     <form

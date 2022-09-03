@@ -37,25 +37,41 @@ class DetailTransaksiNasabahController extends Controller
      */
     public function store(Request $request)
     {
-
-        $getHarga = Sampah::where('id', $request->sampah_id)->value('harga_sampah');
-
         $request->validate([
             'sampah_id' => 'required',
             'transaksi_nasabah_id' => 'required',
             'kuantitas' => 'required'
         ]);
 
-        $getSubtotal = $getHarga * $request->kuantitas;
+        $getSampah = DetailTransaksiNasabahModel::where('transaksi_nasabah_id', $request->transaksi_nasabah_id)->where('sampah_id', $request->sampah_id)->get();
+        $countSampah = DetailTransaksiNasabahModel::where('transaksi_nasabah_id', $request->transaksi_nasabah_id)->where('sampah_id', $request->sampah_id)->count();
+        $getHarga = Sampah::where('id', $request->sampah_id)->value('harga_sampah');
 
-        DetailTransaksiNasabahModel::create([
-            'sampah_id' => $request->get('sampah_id'),
-            'transaksi_nasabah_id' => $request->get('transaksi_nasabah_id'),
-            'kuantitas' => $request->get('kuantitas'),
-            'subtotal_harga' => $getSubtotal
-        ]);
+        if ($countSampah == 0) {
+            $getSubtotal = $getHarga * $request->kuantitas;
+            DetailTransaksiNasabahModel::create([
+                'sampah_id' => $request->get('sampah_id'),
+                'transaksi_nasabah_id' => $request->get('transaksi_nasabah_id'),
+                'kuantitas' => $request->get('kuantitas'),
+                'subtotal_harga' => $getSubtotal
+            ]);
 
-        return back()->with('success', 'data telah ditambahkan');
+            return back()->with('success', 'data telah ditambahkan');
+        } else {
+            foreach ($getSampah as $sampah) {
+                if ($sampah->sampah_id == $request->sampah_id && $sampah->transaksi_nasabah_id == $request->transaksi_nasabah_id) {
+                    $kuantitasSampah = DetailTransaksiNasabahModel::where('transaksi_nasabah_id', $request->transaksi_nasabah_id)->where('sampah_id', $request->sampah_id)->value('kuantitas');
+                    $addKuantitas = $kuantitasSampah + $request->kuantitas;
+                    $getSubtotal = $getHarga * $addKuantitas;
+                    $idDtrans = DetailTransaksiNasabahModel::findOrFail($sampah->id);
+                    $idDtrans->update([
+                        'kuantitas' => $addKuantitas,
+                        'subtotal_harga' => $getSubtotal
+                    ]);
+                    return back()->with('success', 'data telah ditambahkan');
+                }
+            }
+        }
     }
 
     /**
@@ -80,6 +96,7 @@ class DetailTransaksiNasabahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     // pengecualian mohon maklumi
     public function edit($id)
     {
@@ -119,7 +136,10 @@ class DetailTransaksiNasabahController extends Controller
      */
     public function destroy($id)
     {
-        
+        $detailTrans = DetailTransaksiNasabahModel::findOrFail($id);
+        $detailTrans->delete();
+
+        return back()->with('success', 'data telah diubah');
     }
 
     public function checkout(Request $request)

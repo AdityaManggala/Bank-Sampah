@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\DetailTransaksiNasabahController;
 use App\Http\Controllers\JenisHargaSampahController;
-use App\Http\Controllers\JenisSatuanHargaController;
 use App\Http\Controllers\JenisSatuanSampahController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NasabahController;
