@@ -2,23 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\DBAL\TimestampType;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class NasabahModel extends Model
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class NasabahModel extends Authenticatable
 {
     use HasFactory;
-
+    
     public $timestamps = false;
     public $table = "nasabah";
     protected $fillable = [
         'nama_nasabah',
+        'username',
         'password',
         'alamat_nasabah',
         'no_rekening',
         'jml_keluarga',
-        'rata_volume_smph_harian',
         'tgl_msk'
     ];
 

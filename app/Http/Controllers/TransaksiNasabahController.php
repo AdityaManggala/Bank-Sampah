@@ -79,9 +79,13 @@ class TransaksiNasabahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showTransaksiNasabah($id)
     {
-        //
+        $data = [
+            'trnasabah' => TransaksiNasabahModel::where('nasabah_id', $id)->get(),
+        ];
+        
+        return view('user.nasabah.transaksiNasabah', $data);
     }
 
     /**

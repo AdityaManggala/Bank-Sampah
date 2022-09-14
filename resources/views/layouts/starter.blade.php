@@ -34,8 +34,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <div class="dropdown ml-auto">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-        <i class="fa-solid fa-user-large"></i>
-        {{ auth()->user()->username }}
+        <i class="fa fa-user"></i>
+        @if (Str::length(Auth::guard('admin')->user()) > 0)
+        {{ Auth::guard('admin')->user()->username }}
+        @elseif (Str::length(Auth::guard('nasabah')->user()) > 0)
+        {{ Auth::guard('nasabah')->user()->nama_nasabah }}
+        @endif
       </button>
       <div class="dropdown-menu">
         <form action="{{ route('auth.logout') }}" method="POST">

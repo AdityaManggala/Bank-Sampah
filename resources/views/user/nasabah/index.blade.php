@@ -30,11 +30,11 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama</th>
+                                    <th>Username</th>
+                                    <th>Nama Nasabah</th>
                                     <th>Alamat</th>
                                     <th>No. rekening</th>
                                     <th>Tgl. Masuk</th>
-                                    <th>Rata-rata Volume Sampah</th>
                                     <th>Saldo</th>
                                     <th>aksi</th>
                                 </tr>
@@ -43,16 +43,19 @@
                                 @foreach ($rekening as $norek)
                                     <tr class="odd gradeX">
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $norek->nasabah->username }}</td>
                                         <td>{{ $norek->nasabah->nama_nasabah }}</td>
                                         <td>{{ $norek->nasabah->alamat_nasabah }}</td>
                                         <td>{{ $norek->nasabah->no_rekening }}</td>
                                         <td>{{ $norek->nasabah->tgl_msk }}</td>
-                                        <td>{{ $norek->nasabah->rata_volume_smph_harian }}</td>
                                         <td>Rp. {{ $norek->saldo }}</td>
                                         <td>
                                             <button class="btn btn-warning" data-toggle="modal"
                                                 data-target="#editModal{{ $norek->nasabah->id }}"><i
                                                     class="fas fa-edit"></i></button>
+
+                                            <button class="btn btn-warning" data-toggle="modal"
+                                                data-target="#gantiPassModal{{ $norek->nasabah->id }}"><i class="fas fa-key"></i></button>
 
                                             <!-- Edit Modal-->
                                             <div class="modal fade" id="editModal{{ $norek->nasabah->id }}" tabindex="-1"
@@ -78,6 +81,12 @@
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $norek->nasabah->id }}">
                                                                     <div class="col">
+                                                                        <label for="">Username Nasabah:</label>
+                                                                        <input type="text" name="username"
+                                                                            value="{{ $norek->nasabah->username }}"
+                                                                            class="form-control">
+                                                                    </div>
+                                                                    <div class="col">
                                                                         <label for="">Nama Nasabah:</label>
                                                                         <input type="text" name="nama_nasabah"
                                                                             value="{{ $norek->nasabah->nama_nasabah }}"
@@ -95,7 +104,7 @@
                                                                             value="{{ $norek->nasabah->no_rekening }}"
                                                                             class="form-control">
                                                                     </div>
-                                                                    <div class="col-2">
+                                                                    <div class="col">
                                                                         <label for="">Jumlah Keluarga :</label>
                                                                         <input type="text" name="jml_keluarga"
                                                                             value="{{ $norek->nasabah->jml_keluarga }}"
@@ -107,6 +116,46 @@
                                                                             value="{{ $norek->nasabah->tgl_msk }}"
                                                                             class="form-control"
                                                                             onfocus="(this.type='date')">
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button class="btn btn-secondary" type="button"
+                                                                data-dismiss="modal">Cancel</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {{-- ganti password modal --}}
+                                            <div class="modal fade" id="gantiPassModal{{ $norek->nasabah->id }}" tabindex="-1"
+                                                role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-xl" role="document">
+                                                    <div class="modal-content bg-warning">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Ganti Password
+                                                                :
+                                                                {{ $norek->nasabah->nama_nasabah }}</h5>
+                                                            <button class="close" type="button" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form
+                                                                action="{{ route('nasabah.ubahPass', $norek->nasabah->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                
+                                                                <div class="row">
+                                                                    <input type="hidden" name="id"
+                                                                        value="{{ $norek->nasabah->id }}">
+                                                                    <div class="col">
+                                                                        <label for="">Password :</label>
+                                                                        <input type="password" name="password"
+                                                                            class="form-control">
                                                                     </div>
                                                                 </div>
                                                         </div>
@@ -187,6 +236,10 @@
                         <div class="col">
                             <label for="">Tgl. Gabung :</label>
                             <input type="date" name="tgl_msk" class="form-control" required>
+                        </div>
+                        <div class="col">
+                            <label for="">Password :</label>
+                            <input type="password" name="password" class="form-control">
                         </div>
                         <input type="hidden" name="password" value="123" class="form-control">
 

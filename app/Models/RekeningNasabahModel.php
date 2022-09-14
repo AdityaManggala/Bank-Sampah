@@ -9,7 +9,6 @@ class RekeningNasabahModel extends Model
 {
     use HasFactory;
 
-    
     public $table = "rekening_nasabah";
     protected $fillable = [
         'nasabah_id',
