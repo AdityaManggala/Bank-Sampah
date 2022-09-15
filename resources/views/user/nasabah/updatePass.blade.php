@@ -60,8 +60,8 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-warning float-right mt-3"><i class="fa fa-user"></i> Ubah
-                                Profil</button>
+                            <button class="btn btn-primary float-right mt-3"><i class="fas fa-key"></i> Ganti
+                                Password</button>
                         </form>
 
 
