@@ -5,7 +5,6 @@ use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\DetailTransaksiNasabahController;
 use App\Http\Controllers\DetailTransaksiPengepulController;
 use App\Http\Controllers\JenisHargaSampahController;
-use App\Http\Controllers\JenisSatuanHargaController;
 use App\Http\Controllers\JenisSatuanSampahController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LoginController;
@@ -29,10 +28,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('Template');
-// });
-// Route::middleware()
+
+
 
 Route::get('/', LandingPageController::class)->name('home');
 
@@ -40,12 +37,29 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::post('/login', [LoginController::class, 'authenticate'])->name('auth.login');
 
-Route::middleware('auth')->group(function () {
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+
+Route::middleware('auth:nasabah')->group(function () {
+
+    Route::get('/transaksi-nasabah/showTransaksiNasabah/{id}', [TransaksiNasabahController::class, 'showTransaksiNasabah'])->name('transaksi.nasabah');
+
+    Route::get('/nasabah/profilNasabah', [NasabahController::class, 'profilNasabah'])->name('nasabah.profilNasabah');
+
+    Route::post('/nasabah/editNasabah/{id}', [NasabahController::class, 'editNasabah'])->name('nasabah.editNasabah');
+
+    Route::get('/nasabah/indexUpdPass', [NasabahController::class, 'indexUpdPass'])->name('nasabah.updPass');
+
+    Route::post('/nasabah/cekPwd', [NasabahController::class, 'cekPwd'])->name('nasabah.cekPwd');
+
+    Route::post('/nasabah/gantiPass', [NasabahController::class, 'gantiPass'])->name('nasabah.gantiPass');
+
+});
+
+Route::middleware('auth:admin')->group(function () {
 
     Route::get('dashboard', [dashboardController::class, 'index'])->name('dashboard');
-
-    Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
-
+    
     Route::get('/transaksi-nasabah/indexTransaksi', [TransaksiNasabahController::class, 'indexTransaksi'])->name('index.transaksi');
 
     Route::get('/transaksi-nasabah/transaksiSelesai', [TransaksiNasabahController::class, 'transaksiSelesai'])->name('end.transaksi');
@@ -60,7 +74,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/nasabah/ambilSaldo', [NasabahController::class, 'ambilSaldo'])->name('nasabah.ambilSaldo');
 
-    Route::resource('jenis-harga-sampah', JenisHargaSampahController::class)->middleware('auth');
+    Route::post('/nasabah/ubahPass/{id}', [NasabahController::class, 'ubahPass'])->name('nasabah.ubahPass');
+
+    Route::resource('jenis-harga-sampah', JenisHargaSampahController::class);
 
     Route::resource('jenis-satuan-sampah', JenisSatuanSampahController::class);
 
@@ -82,7 +98,3 @@ Route::middleware('auth')->group(function () {
 
     Route::get('saldo-sampah', [SaldoSampahController::class, 'index'])->name('saldo-sampah');
 });
-
-// Route::get('/test', function () {
-//     return view('layouts.starter');
-// })->middleware('auth');

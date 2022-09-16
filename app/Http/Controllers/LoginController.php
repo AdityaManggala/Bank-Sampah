@@ -22,10 +22,12 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-
             return redirect()->intended('dashboard');
+        } elseif (Auth::guard('nasabah')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended(route('nasabah.profilNasabah'));
         }
 
         return back()->with('loginError', 'Login Failed!');

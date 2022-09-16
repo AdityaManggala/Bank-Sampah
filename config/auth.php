@@ -40,6 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'admin',
         ],
+        
+        'nasabah' => [
+            'driver' => 'session',
+            'provider' => 'nasabah',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
     ],
 
     /*
@@ -63,6 +73,11 @@ return [
         'admin' => [
             'driver' => 'eloquent',
             'model' => App\Models\AdminModel::class,
+        ],
+
+        'nasabah' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\NasabahModel::class,
         ],
 
         // 'users' => [

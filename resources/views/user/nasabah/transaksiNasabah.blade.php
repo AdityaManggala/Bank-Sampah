@@ -1,6 +1,6 @@
 @extends('layouts.starter')
 @section('title')
-    Manajemen Transaksi Nasabah
+    Data Transaksi yang telah Anda lakukan
 @endsection
 
 @push('css')
@@ -12,21 +12,11 @@
 
 @section('content')
     <div class="section-body">
-        @if (session()->has('msg'))
-            <div class="alert alert-success" role="alert">
-                {{ session('msg') }}
-            </div>
-        @endif
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Data Transaksi</h3>
-                        <a class="btn btn-primary btn-icon-split float-right" href="{{ route('index.transaksi') }}">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-user-plus"></i>
-                            </span><span class="text">Tambah</span>
-                        </a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -34,7 +24,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Nasabah</th>
+
                                     <th>Nama Admin</th>
                                     <th>No. rekening</th>
                                     <th>Tgl. Transaksi Dimulai</th>
@@ -48,7 +38,6 @@
                                 @foreach ($trnasabah as $transaksi)
                                     <tr class="odd gradeX">
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $transaksi->nasabah->nama_nasabah }}</td>
                                         <td>{{ $transaksi->admin->username }}</td>
                                         <td>{{ $transaksi->nasabah->no_rekening }}</td>
                                         <td>{{ $transaksi->created_at }}</td>
@@ -63,44 +52,11 @@
                                         <td>Rp. {{ $transaksi->grand_total_harga }}</td>
                                         <td>
                                             @if ($transaksi->status == 1)
-                                                @if ($transaksi->tipe_transaksi == 'debit')
-                                                    <form
-                                                        action="{{ route('detail-transaksi-nasabah.show', $transaksi->id) }}"
-                                                        class="d-inline">
-                                                        <button class="btn btn-warning"><i class="fa fa-eye"></i></button>
-                                                    </form>
-                                                @else
-                                                    <form action="{{ route('nasabah.ambilSaldo') }}" class="d-inline">
-                                                        <input type="hidden" name="transaksi_id"
-                                                            value="{{ $transaksi->id }}" class="form-control" required>
-                                                        <input type="hidden" name="nasabah_id"
-                                                            value="{{ $transaksi->nasabah_id }}" class="form-control"
-                                                            required>
-                                                        <button class="btn btn-primary"><i class="fa fa-eye"></i></button>
-                                                    </form>
-                                                @endif
-
-                                                <form action="{{ route('batal.transaksi', $transaksi->id) }}"
-                                                    class="d-inline" method="POST"
-                                                    onsubmit="return confirm('Yakin Ingin batalkan transaksi ?')">
-                                                    @csrf
-                                                    @method('post')
-                                                    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </form>
+                                                <span class="badge badge-warning">belum selesai</span>
                                             @elseif ($transaksi->status == 0)
                                                 <span class="badge badge-danger">Dibatalkan</span>
                                             @else
                                                 <span class="badge badge-success">Sudah Checkout</span>
-                                                
-                                                {{-- tak coba nggae route anyar g iso. iso'e nggae route edit gawe nge GET id transaksi T_T --}}
-                                                @if ($transaksi->tipe_transaksi == 'debit')
-                                                    <form
-                                                        action="{{ route('detail-transaksi-nasabah.edit', $transaksi->id) }}"
-                                                        class="d-inline">
-                                                        <button class="btn btn-warning"><i class="fa fa-eye"></i></button>
-                                                    </form>
-                                                @else
-                                                @endif
                                             @endif
                                         </td>
                                     </tr>
@@ -109,7 +65,6 @@
                             <tfoot>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Nasabah</th>
                                     <th>Nama Admin</th>
                                     <th>No. rekening</th>
                                     <th>Tgl. Transaksi Dimulai</th>
