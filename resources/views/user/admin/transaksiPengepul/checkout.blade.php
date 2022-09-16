@@ -1,6 +1,6 @@
 @extends('layouts.starter')
 @section('title')
-    Manajemen Transaksi Nasabah
+    Manajemen Transaksi Pengepul
 @endsection
 
 @push('css')
@@ -17,11 +17,11 @@
                 <div class="container-fluid">
                     <div class="card card-primary shadow mb-4">
                         <div class="card-header py-3">
-                            <div class="card-title">Check Out Transaksi untuk nasabah</div>
+                            <div class="card-title">Total Pemasukan Transaksi Pengepul</div>
                             
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('transaksi-nasabah.update', $transaksi_id) }}" method="POST">
+                            <form action="{{ route('transaksi-pengepul.update', $transaksi_pengepul_id) }}" method="POST">
                                 @csrf
                                 @method('put')
                                 <div class="row">
@@ -31,13 +31,13 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">Rp.</div>
                                                 <input type="text" name="grand_total_harga" value="{{ $grand_total_harga }}" class="form-control currency" readonly="">
-                                                <input type="hidden" name="transaksi" value="{{ $transaksi_id }}">
+                                                <input type="hidden" name="transaksi_pengepul_id" value="{{ $transaksi_pengepul_id }}">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary float-right mt-3">Check Out</button>
-                                <a href="{{ route('transaksi-nasabah.index') }}" class="btn btn-danger float-right mt-3">Batal</a>
+                                <a href="{{ route('transaksi-pengepul.show',$transaksi_pengepul_id) }}" class="btn btn-danger float-right mt-3">Batal</a>
                             </form>
                         </div>
                     </div>

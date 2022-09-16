@@ -2,19 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sampah;
+use App\Models\AdminModel;
 use Illuminate\Http\Request;
+use App\Models\TransaksiPengepulModel;
+use App\Models\DetailTransaksiPengepulModel;
+use Yajra\DataTables\Facades\DataTables;
 
 class TransaksiPengepulController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $data = [
+            'tr' => TransaksiPengepulModel::with('admin')->get()
+        ];
+
+        return view('user.admin.transaksiPengepul.index', $data);
     }
+
+    // public function dataTransaksiPengepul()
+    // {
+    //     $model = TransaksiPengepulModel::with('admin');
+    //     return DataTables::eloquent($model)
+    //     ->addColumn('admin', function(TransaksiPengepulModel $transaksiPengepulModel){
+    //         return $transaksiPengepulModel->admin;
+    //     })
+    //     ->a
+    //     ->toJson();
+
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -23,7 +40,7 @@ class TransaksiPengepulController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.admin.transaksiPengepul.create');
     }
 
     /**
@@ -34,7 +51,14 @@ class TransaksiPengepulController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'admin_id' => 'required',
+            'nama_pengepul' => 'required',
+            'status' => 'required'
+        ]);
+
+        $getId = TransaksiPengepulModel::create($request->post());
+        return redirect()->route('transaksi-pengepul.show', $getId);
     }
 
     /**
@@ -45,15 +69,15 @@ class TransaksiPengepulController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = [
+            'sampah' => Sampah::where('jenis_harga_sampah_id', 1)->get(),
+            'transaksi' => TransaksiPengepulModel::where('id', $id)->get(),
+            'det_transaksi' => DetailTransaksiPengepulModel::where('transaksi_pengepul_id', $id)->get()
+        ];
+        return view('user.admin.DetailTransaksiPengepul.index', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
@@ -68,7 +92,16 @@ class TransaksiPengepulController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $trp = TransaksiPengepulModel::where('id', $id)->firstOrFail();
+        $trp->status = 2;
+        $trp->grand_total_harga = $request->grand_total_harga;
+        $trp->save();
+        
+        $data = [
+            'saldo' => $request->grand_total_harga,
+            'id_admin' => TransaksiPengepulModel::where('id', $id)->value('admin_id')
+        ];
+        return redirect()->route('admin.addSaldo', $data);
     }
 
     /**

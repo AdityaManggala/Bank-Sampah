@@ -85,7 +85,6 @@ class NasabahController extends Controller
      */
     public function edit($id)
     {
-        
     }
 
     /**
@@ -118,6 +117,7 @@ class NasabahController extends Controller
 
     public function addSaldo(Request $request)
     {
+        // dd($request->all());
         $debitAwal = RekeningNasabahModel::where('id', $request->id)->value('debit');
         $kreditAwal = RekeningNasabahModel::where('id', $request->id)->value('kredit');
         $addDebit = $debitAwal + $request->debit;
@@ -130,8 +130,8 @@ class NasabahController extends Controller
 
         $getIdNasabah = [
             'id' => $request->id,
-            'grand'=>$request->debit,
-            'id_transaksi'=>$request->id_transaksi
+            'grand' => $request->debit,
+            'id_transaksi' => $request->id_transaksi
         ];
 
         return redirect()->route('end.transaksi', $getIdNasabah);
@@ -151,8 +151,8 @@ class NasabahController extends Controller
 
         $getIdNasabah = [
             'id' => $request->id,
-            'grand'=>$request->kredit,
-            'id_transaksi'=>$request->id_transaksi
+            'grand' => $request->kredit,
+            'id_transaksi' => $request->id_transaksi
         ];
 
         return redirect()->route('end.transaksi', $getIdNasabah);
@@ -160,7 +160,7 @@ class NasabahController extends Controller
 
     public function ambilSaldo(Request $request)
     {
-        
+
         $data = [
             'saldo' => RekeningNasabahModel::where('id', $request->nasabah_id)->value('saldo'),
             'transaksi_id' => $request->transaksi_id,

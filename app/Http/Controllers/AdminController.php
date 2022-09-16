@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminModel;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -80,5 +81,13 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addSaldo(Request $request)
+    {
+        $admin = AdminModel::where('id', $request->id_admin)->firstOrFail();
+        $admin->saldo += $request->saldo;
+        $admin->save();
+        return redirect()->route('transaksi-pengepul.index')->with('success', 'transaksi Pengepul telah berhasil');
     }
 }

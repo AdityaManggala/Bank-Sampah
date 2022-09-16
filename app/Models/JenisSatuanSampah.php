@@ -19,4 +19,9 @@ class JenisSatuanSampah extends Model
     {
         return $this->hasMany(SampahModel::class);
     }
+
+    public function saldoSampah()
+    {
+        return $this->hasMany(SaldoSampah::class);
+    }
 }
