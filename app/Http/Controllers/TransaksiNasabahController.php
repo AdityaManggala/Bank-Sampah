@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sampah;
 use App\Models\AdminModel;
-use App\Models\NasabahModel;
-use App\Models\TransaksiNasabahModel;
+use App\Models\SaldoSampah;
 
+use App\Models\NasabahModel;
 use Illuminate\Http\Request;
+
+use App\Models\TransaksiNasabahModel;
+use App\Models\DetailTransaksiNasabahModel;
 
 class TransaksiNasabahController extends Controller
 {
@@ -108,6 +112,44 @@ class TransaksiNasabahController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all(), $id);
+        $databarang = DetailTransaksiNasabahModel::where('transaksi_nasabah_id', $id)->get();
+
+        foreach ($databarang as $data) {
+            $kuantitas = (float)$data->kuantitas;
+            $nama = Sampah::where('id', $data->sampah_id)->value('nama_sampah');
+            $sampahPengepul = Sampah::where('nama_sampah', $nama)
+                ->where('jenis_harga_sampah_id', 1)->get();
+            $sampahPengepulId = Sampah::where('nama_sampah', $nama)
+                ->where('jenis_harga_sampah_id', 1)->value('id');
+            if (count($sampahPengepul) == 0) {
+
+                return redirect(route('sampah.index'))->with(
+                    "msg",
+                    "tidak terdapat data sampah dengan nama $nama untuk jenis harga pengepul, buatlah terlebih dahulu"
+                );
+            }
+        };
+
+        foreach ($databarang as $data) {
+            $kuantitas = (float)$data->kuantitas;
+            $nama = Sampah::where('id', $data->sampah_id)->value('nama_sampah');
+            $sampahPengepul = Sampah::where('nama_sampah', $nama)
+                ->where('jenis_harga_sampah_id', 1)->get();
+            $sampahPengepulId = Sampah::where('nama_sampah', $nama)
+                ->where('jenis_harga_sampah_id', 1)->value('id');
+
+            $qty = SaldoSampah::where('sampah_id', $sampahPengepulId)->value('qty');
+            if ($qty != null) {
+                $saldo = SaldoSampah::where('sampah_id', $sampahPengepulId)->firstOrFail();
+                $saldo->qty += $kuantitas;
+                $saldo->save();
+            } else {
+                $saldo = SaldoSampah::where('sampah_id', $sampahPengepulId)->firstOrFail();
+                $saldo->qty = $kuantitas;
+                $saldo->save();
+            }
+        }
         $getIdNasabah = [
             'id' => TransaksiNasabahModel::where('id', $id)->value('nasabah_id'),
             'debit' => $request->grand_total_harga,
@@ -135,6 +177,10 @@ class TransaksiNasabahController extends Controller
             'grand_total_harga' => $request->grand,
             'status' => '2'
         ]);
-        return redirect()->route('transaksi-nasabah.index');
+        return redirect()->route('transaksi-nasabah.index')
+            ->with(
+                "msg",
+                "Transaksi Telah Selesai"
+            );
     }
 }

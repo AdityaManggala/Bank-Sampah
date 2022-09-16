@@ -1,6 +1,6 @@
 @extends('layouts.starter')
 @section('title')
-    Manajemen Transaksi Nasabah
+    Manajemen Transaksi Pengepul
 @endsection
 
 @push('css')
@@ -17,27 +17,22 @@
                 <div class="container-fluid">
                     <div class="card card-primary shadow mb-4">
                         <div class="card-header py-3">
-                            <div class="card-title">Check Out Transaksi untuk nasabah</div>
-                            
+                            <div class="card-title">Tambah Transaksi</div>
+                            <a href="{{ route('transaksi-pengepul.index') }}" class="btn btn-info float-right">Kembali</a>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('transaksi-nasabah.update', $transaksi_id) }}" method="POST">
+                            <form action="{{ route('transaksi-pengepul.store') }}" method="POST">
                                 @csrf
-                                @method('put')
                                 <div class="row">
                                     <div class="col">
-                                        <div class="form-group mt-3">
-                                            <label>Harga Total</label>
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Rp.</div>
-                                                <input type="text" name="grand_total_harga" value="{{ $grand_total_harga }}" class="form-control currency" readonly="">
-                                                <input type="hidden" name="transaksi" value="{{ $transaksi_id }}">
-                                            </div>
-                                        </div>
+                                        <!-- penambahan data transaksi -->
+                                        <label for="">Pengepul : </label>
+                                        <input type="text" class="form-control" id="nama_pengepul" name="nama_pengepul" placeholder="nama pengepul" value="" maxlength="50" required>
+                                        <input type="hidden" name="admin_id" value="{{ auth()->user()->id }}" class="form-control" required>
+                                        <input type="hidden" name="status" value="1" class="form-control" required>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary float-right mt-3">Check Out</button>
-                                <a href="{{ route('transaksi-nasabah.index') }}" class="btn btn-danger float-right mt-3">Batal</a>
+                                <button type="submit" class="btn btn-primary float-right mt-3">Daftar</button>
                             </form>
                         </div>
                     </div>

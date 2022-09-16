@@ -1,8 +1,7 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="{{ route('dashboard') }}" class="brand-link">
+        <img src="{{ asset('') }}dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Bank Sampah</span>
     </a>
 
@@ -28,7 +27,53 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
+
                 @if (Auth::guard('admin')->check())
+
+            <li class="nav-item">
+                <a href="{{ route('dashboard') }}" class="nav-link @if (Route::is('dashboard'))
+                                    active @endif">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                    Dashboard
+                    {{-- <span class="right badge badge-danger">New</span> --}}
+                </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('saldo-sampah') }}" class="nav-link @if (Route::is('saldo-sampah'))
+                                    active @endif">
+                                    {{-- <i class=""></i> --}}
+                <i class="nav-icon fas fa-dumpster"></i>
+                <p>
+                    Saldo Sampah
+                    {{-- <span class="right badge badge-danger">New</span> --}}
+                </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('transaksi-pengepul.index') }}" class="nav-link @if (Route::is('transaksi-pengepul.index'))
+                                    active @endif">
+                                    {{-- <i class=""></i> --}}
+                                    {{-- <i class="far fa-money-bill"></i> --}}
+                <i class="nav-icon fas fa-money-bill"></i>
+                <p>
+                    Transaksi Pengepul
+                    {{-- <span class="right badge badge-danger">New</span> --}}
+                </p>
+                </a>
+            </li>
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                {{-- <i class="nav-icon fas fa-tachometer-alt"></i> --}}
+                <i class="nav-icon fas fa-sitemap"></i>
+                <p>
+                    Data Master
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+
                     <li class="nav-item">
                         <a href="{{ route('dashboard') }}"
                             class="nav-link @if (Route::is('dashboard')) active @endif">
@@ -105,6 +150,24 @@
                     </li>
                 @endif
                 </li>
+                    <li class="nav-item">
+                        <a href="{{ route('transaksi-nasabah.index') }}" class="nav-link @if (Route::is('transaksi-nasabah.index'))
+                                    active
+                                @endif">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Transaksi Nasabah</p>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item">
+                        <a href="{{ route('transaksi-pengepul.index') }}" class="nav-link @if (Route::is('transaksi-pengepul.index'))
+                                    active
+                                @endif">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Transaksi Pengepul</p>
+                        </a>
+                    </li> --}}
+                </ul>
+            </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

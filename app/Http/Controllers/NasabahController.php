@@ -168,6 +168,7 @@ class NasabahController extends Controller
 
     public function addSaldo(Request $request)
     {
+        // dd($request->all());
         $debitAwal = RekeningNasabahModel::where('id', $request->id)->value('debit');
         $kreditAwal = RekeningNasabahModel::where('id', $request->id)->value('kredit');
         $addDebit = $debitAwal + $request->debit;

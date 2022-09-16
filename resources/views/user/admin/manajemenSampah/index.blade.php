@@ -12,6 +12,11 @@
 
 @section('content')
 <div class="section-body">
+    @if (session()->has('msg'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('msg') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-lg-12">
             <div class="card">

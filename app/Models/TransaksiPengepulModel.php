@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class TransaksiPengepulModel extends Model
 {
     use HasFactory;
-
+    public $table = "transaksi_pengepul";
     protected $fillable = [
         'admin_id',
-        'grand_total_berat',
         'grand_total_harga',
         'tgl_transaksi',
         'nama_pengepul',
+        'status'
     ];
 
     public function admin()

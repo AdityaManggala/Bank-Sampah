@@ -36,4 +36,9 @@ class Sampah extends Model
     {
         return $this->hasMany(DetailTransaksiPengepulModel::class);
     }
+
+    public function saldoSampah()
+    {
+        return $this->hasMany(SaldoSampah::class);
+    }
 }
