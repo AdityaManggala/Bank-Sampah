@@ -1,6 +1,6 @@
 @extends('layouts.starter')
 @section('title')
-    Manajemen Transaksi
+    Manajemen Transaksi Pengepul
 @endsection
 
 @push('css')
@@ -12,22 +12,32 @@
 
 @section('content')
     <div class="section-body">
+        @if (session()->has('msg'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('msg') }}
+            </div>
+        @endif
+        @if (session()->has('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="row">
             <div class="col-lg-12">
                 <div class="container-fluid">
                     <div class="card card-primary shadow mb-4">
                         <div class="card-header py-3">
-                            <div class="card-title">Keranjang :
+                            <div class="card-title">Pengepul :
                                 @foreach ($transaksi as $trans)
-                                    {{ $trans->nasabah->nama_nasabah }}
+                                    {{ $trans->nama_pengepul }}
                                 @endforeach
                             </div>
-                            <a href="{{ route('transaksi-nasabah.index') }}" class="btn btn-info float-right">Kembali</a>
+                            <a href="{{ route('transaksi-pengepul.index') }}" class="btn btn-info float-right">Kembali</a>
                         </div>
                         <div class="card-body">
 
                             {{-- start fo card pilih sampah --}}
-                            <form action="{{ route('detail-transaksi-nasabah.store') }}" method="POST">
+                            <form action="{{ route('detail-transaksi-pengepul.store') }}" method="POST">
                                 @csrf
                                 <div class="form-row">
                                     <div class="col">
@@ -47,7 +57,7 @@
                                         <label for="">Jumlah Sampah</label>
                                         <input type="number" step="any" name="kuantitas" class="form-control">
                                         @foreach ($transaksi as $trans)
-                                            <input type="hidden" name="transaksi_nasabah_id" class="form-control"
+                                            <input type="hidden" name="transaksi_pengepul_id" class="form-control"
                                                 value="{{ $trans->id }}">
                                         @endforeach
                                     </div>
@@ -56,12 +66,12 @@
                             </form>
                             {{-- end of pilih sampah --}}
 
-                            <form action="{{ route('checkout.transaksi') }}" method="POST" class="float-right mt-3"
+                            <form action="{{ route('checkout.transaksi.pengepul') }}" method="POST" class="float-right mt-3"
                                 onsubmit="return confirm('Yakin Ingin Checkout?')">
                                 @csrf
                                 @method('post')
                                 @foreach ($transaksi as $trans)
-                                    <input type="hidden" name="transaksi_nasabah_id" class="form-control"
+                                    <input type="hidden" name="transaksi_pengepul_id" class="form-control"
                                         value="{{ $trans->id }}">
                                 @endforeach
                                 <button class="btn btn-primary"><i class="fa fa-user"></i> checkout</button>
@@ -118,7 +128,7 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body justify-content-between">
-                                                                <form action="{{ route('detail-transaksi-nasabah.update', $dtrans->id) }}"
+                                                                <form action="{{ route('detail-transaksi-pengepul.update', $dtrans->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('put')
@@ -144,10 +154,11 @@
                                                     </div>
                                                 </div>
                         </div>
-                        <form action="{{ route('detail-transaksi-nasabah.destroy', $dtrans->id) }}" method="POST"
+                        <form action="{{ route('detail-transaksi-pengepul.destroy', $dtrans->id) }}" method="POST"
                             class="d-inline" onsubmit="return confirm('Yakin Ingin hapus data')">
                             @csrf
                             @method('delete')
+                            <input type="hidden" name="kuantitas"value="{{ $dtrans->kuantitas }}">
                             <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                         </form>
                         </td>

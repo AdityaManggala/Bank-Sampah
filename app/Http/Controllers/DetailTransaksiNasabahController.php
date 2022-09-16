@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailTransaksiNasabahModel;
-use App\Models\TransaksiNasabahModel;
 use App\Models\Sampah;
+use App\Models\SaldoSampah;
 use Illuminate\Http\Request;
+use App\Models\JenisHargaSampah;
+use PhpParser\Node\Expr\Cast\Double;
+use App\Models\TransaksiNasabahModel;
+use App\Models\DetailTransaksiNasabahModel;
+use Illuminate\Console\View\Components\Alert;
 
 class DetailTransaksiNasabahController extends Controller
 {
@@ -67,7 +71,7 @@ class DetailTransaksiNasabahController extends Controller
     public function show($id)
     {
         $data = [
-            'sampah' => Sampah::all(),
+            'sampah' => Sampah::where('jenis_harga_sampah_id', 2)->get(),
             'transaksi' => TransaksiNasabahModel::where('id', $id)->get(),
             'det_transaksi' => DetailTransaksiNasabahModel::where('transaksi_nasabah_id', $id)->get()
         ];
@@ -119,7 +123,6 @@ class DetailTransaksiNasabahController extends Controller
      */
     public function destroy($id)
     {
-        
     }
 
     public function checkout(Request $request)

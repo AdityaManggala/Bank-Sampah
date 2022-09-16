@@ -11,6 +11,7 @@ class DetailTransaksiNasabahModel extends Model
 
     public $timestamps = false;
     public $table = "detail_transaksi_nasabah";
+    public $primaryKey ="id";
     protected $fillable = [
         'sampah_id',
         'transaksi_nasabah_id',

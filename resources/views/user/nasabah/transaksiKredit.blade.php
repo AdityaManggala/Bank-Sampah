@@ -1,6 +1,6 @@
 @extends('layouts.starter')
 @section('title')
-    Manajemen Transaksi
+    Manajemen Transaksi Nasabah
 @endsection
 
 @push('css')
@@ -15,7 +15,6 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="container-fluid">
-
                     <div class="card card-primary shadow mb-4">
                         <div class="card-header py-3">
                             <div class="card-title">Detail Transaksi</div>

@@ -1,6 +1,6 @@
 @extends('layouts.starter')
 @section('title')
-    Manajemen Transaksi
+    Manajemen Transaksi Nasabah
 @endsection
 
 @push('css')
