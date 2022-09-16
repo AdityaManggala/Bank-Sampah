@@ -93,6 +93,7 @@
                                 </a>
                             </li>
                         </ul>
+                    </li>
                     @elseif (Auth::guard('nasabah')->check())
                     <li class="nav-item">
                         <a href="{{ route('transaksi.nasabah', Auth::id()) }}"
