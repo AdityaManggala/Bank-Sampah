@@ -56,8 +56,8 @@ class SampahController extends Controller
         $request->validate([
             'nama_sampah' => 'required',
             'harga_sampah' => 'required',
-            'jenis_harga_sampah_id' => 'required',
-            'jenis_satuan_sampah_id' => 'required'
+            // 'jenis_harga_sampah_id' => 'required',
+            // 'jenis_satuan_sampah_id' => 'required'
         ]);
         $data = Sampah::findOrFail($id);
         $data->update(request()->all());

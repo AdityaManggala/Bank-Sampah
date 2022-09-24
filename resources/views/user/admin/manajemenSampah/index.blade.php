@@ -166,7 +166,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Jenis Satuan</span>
                     </div>
-                    <select class="form-control" name="jenis_satuan_sampah_id" id="select-jenis-satuan">
+                    <select class="form-control" name="jenis_satuan_sampah_id" id="select-jenis-satuan" disabled>
                         <option value="">pilih</option>
                         @foreach ($satuan as $item )
                         <option value="{{ $item->id }}">{{ $item->nama_jenis_satuan }}</option>
@@ -177,7 +177,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Jenis Harga</span>
                     </div>
-                    <select class="form-control" name="jenis_harga_sampah_id" id="select-jenis-harga">
+                    <select class="form-control" name="jenis_harga_sampah_id" id="select-jenis-harga" disabled>
                         <option value="">pilih</option>
                         @foreach ($harga as $item )
                         <option value="{{ $item->id }}">{{ $item->nama_jenis_harga }}</option>
