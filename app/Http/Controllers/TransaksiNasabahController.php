@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sampah;
 use App\Models\AdminModel;
+use App\Models\DetailRiwayatTransaksiNasabah;
 use App\Models\SaldoSampah;
 
 use App\Models\NasabahModel;
@@ -11,6 +12,8 @@ use Illuminate\Http\Request;
 
 use App\Models\TransaksiNasabahModel;
 use App\Models\DetailTransaksiNasabahModel;
+use App\Models\JenisSatuanSampah;
+use App\Models\RiwayatTransaksiNasabah;
 
 class TransaksiNasabahController extends Controller
 {
@@ -88,7 +91,7 @@ class TransaksiNasabahController extends Controller
         $data = [
             'trnasabah' => TransaksiNasabahModel::where('nasabah_id', $id)->get(),
         ];
-        
+
         return view('user.nasabah.transaksiNasabah', $data);
     }
 
@@ -177,6 +180,27 @@ class TransaksiNasabahController extends Controller
             'grand_total_harga' => $request->grand,
             'status' => '2'
         ]);
+        $transaksi = TransaksiNasabahModel::findOrFail($request->id_transaksi);
+        $riwayat = new RiwayatTransaksiNasabah();
+        $riwayat->admin_nama = AdminModel::where('id', $transaksi->admin_id)->value('username');
+        $riwayat->nasabah_nama = NasabahModel::where('id', $transaksi->nasabah_id)->value('nama_nasabah');
+        $riwayat->tipe_transaksi = $transaksi->tipe_transaksi;
+        $riwayat->grand_total_harga = $transaksi->grand_total_harga;
+        $riwayat->save();
+
+        $dataDetail = DetailTransaksiNasabahModel::where('transaksi_nasabah_id', $request->id_transaksi)->get();
+        foreach ($dataDetail as $data) {
+            $detailRiwayat = new DetailRiwayatTransaksiNasabah();
+            $satuanSampah = Sampah::where('id', $data->sampah_id)->value('jenis_satuan_sampah_id');
+
+            $detailRiwayat->sampah_nama = Sampah::where('id', $data->sampah_id)->value('nama_sampah');
+            $detailRiwayat->satuan = JenisSatuanSampah::where('id', $satuanSampah)->value('nama_jenis_satuan');
+            $detailRiwayat->rwyt_trans_nsb_id = $riwayat->id;
+            $detailRiwayat->kuantitas = $data->kuantitas;
+            $detailRiwayat->subtotal_harga = $data->subtotal_harga;
+            $detailRiwayat->save();
+        }
+
         return redirect()->route('transaksi-nasabah.index')
             ->with(
                 "msg",

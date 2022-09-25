@@ -14,6 +14,7 @@ use App\Http\Controllers\SampahController;
 use App\Http\Controllers\TransaksiNasabahController;
 use App\Http\Controllers\TransaksiPengepulController;
 use App\Models\NasabahModel;
+use App\Http\Controllers\RiwayatTransaksiNasabahController;
 use App\Models\TransaksiNasabahModel;
 use Illuminate\Support\Facades\Route;
 
@@ -53,13 +54,12 @@ Route::middleware('auth:nasabah')->group(function () {
     Route::post('/nasabah/cekPwd', [NasabahController::class, 'cekPwd'])->name('nasabah.cekPwd');
 
     Route::post('/nasabah/gantiPass', [NasabahController::class, 'gantiPass'])->name('nasabah.gantiPass');
-
 });
 
 Route::middleware('auth:admin')->group(function () {
 
     Route::get('dashboard', [dashboardController::class, 'index'])->name('dashboard');
-    
+
     Route::get('/transaksi-nasabah/indexTransaksi', [TransaksiNasabahController::class, 'indexTransaksi'])->name('index.transaksi');
 
     Route::get('/transaksi-nasabah/transaksiSelesai', [TransaksiNasabahController::class, 'transaksiSelesai'])->name('end.transaksi');
@@ -97,4 +97,7 @@ Route::middleware('auth:admin')->group(function () {
     route::get('admin/tambah-saldo', [AdminController::class, 'addSaldo'])->name('admin.addSaldo');
 
     Route::get('saldo-sampah', [SaldoSampahController::class, 'index'])->name('saldo-sampah');
+
+    Route::get('riwayat-transaksi', [RiwayatTransaksiNasabahController::class, 'index'])->name('riwayat-transaksi.index');
+    Route::get('riwayat-transaksi/show/{id}', [RiwayatTransaksiNasabahController::class, 'show'])->name('riwayat-transaksi.show');
 });

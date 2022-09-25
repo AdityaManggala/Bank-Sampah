@@ -74,6 +74,16 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('riwayat-transaksi.index') }}" class="nav-link @if (Route::is('riwayat-transaksi.index'))
+                                    active @endif">
+                                    {{-- <i class=""></i> --}}
+                <i class="nav-icon fas fa-dumpster"></i>
+                <p>
+                    Riwayat Transaksi 
+                </p>
+                </a>
+            </li>
                 @elseif (Auth::guard('nasabah')->check())
                 <li class="nav-item">
                     <a href="{{ route('nasabah.profilNasabah') }}"
